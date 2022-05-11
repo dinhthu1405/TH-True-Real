@@ -57,7 +57,7 @@
                         <form action="{{ route('loi.store') }}" method="post" enctype="multipart/form-data">
                             {!! @csrf_field() !!}
                             <div class="row">
-                                <div class="col-md-6 pr-1">
+                                {{-- <div class="col-md-6 pr-1">
                                     <label>Tài khoản</label>
                                     <select name="User" id="" class="form-control">
                                         <option value="">-- Chọn Tài Khoản--</option>
@@ -65,7 +65,7 @@
                                             <option value="{{ $user->id }}">{{ $user->email }}</option>
                                         @endforeach
                                     </select>
-                                </div>
+                                </div> --}}
                                 <div class="col-md-6 pr-1">
                                     <div class="form-group">
                                         <label>Thời gian</label>
@@ -103,25 +103,25 @@
                                 </div>
                             </div>
                             <!-- <div class="row">
-                                                                            <div class="col-md-6">
-                                                                                <div class="form-group">
-                                                                                    <div class="form-group">
-                                                                                        <label for="">Hình ảnh</label>
-                                                                                        <input type="file" name="images" accept="image/*" class="form-control" id="images" onchange="loadFile(event)" placeholder="Hình ảnh">
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div> -->
+                                                                                                                                                                                                                                                                                                                                                            <div class="col-md-6">
+                                                                                                                                                                                                                                                                                                                                                                <div class="form-group">
+                                                                                                                                                                                                                                                                                                                                                                    <div class="form-group">
+                                                                                                                                                                                                                                                                                                                                                                        <label for="">Hình ảnh</label>
+                                                                                                                                                                                                                                                                                                                                                                        <input type="file" name="images" accept="image/*" class="form-control" id="images" onchange="loadFile(event)" placeholder="Hình ảnh">
+                                                                                                                                                                                                                                                                                                                                                                    </div>
+                                                                                                                                                                                                                                                                                                                                                                </div>
+                                                                                                                                                                                                                                                                                                                                                            </div>
+                                                                                                                                                                                                                                                                                                                                                        </div> -->
                             <!-- <div class="row">
-                                                                            <div class="col-md pr-1">
-                                                                                <div class="form-group">
-                                                                                    <label for="">Hình</label>
-                                                                                    <div class="user-image col-md-12 text-center">
-                                                                                        <img id="preview-image" src="{{ asset('asset/img/khongxacdinh.jpg') }}" alt="preview image" style="max-height: 200px;">
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div> -->
+                                                                                                                                                                                                                                                                                                                                                            <div class="col-md pr-1">
+                                                                                                                                                                                                                                                                                                                                                                <div class="form-group">
+                                                                                                                                                                                                                                                                                                                                                                    <label for="">Hình</label>
+                                                                                                                                                                                                                                                                                                                                                                    <div class="user-image col-md-12 text-center">
+                                                                                                                                                                                                                                                                                                                                                                        <img id="preview-image" src="{{ asset('asset/img/khongxacdinh.jpg') }}" alt="preview image" style="max-height: 200px;">
+                                                                                                                                                                                                                                                                                                                                                                    </div>
+                                                                                                                                                                                                                                                                                                                                                                </div>
+                                                                                                                                                                                                                                                                                                                                                            </div>
+                                                                                                                                                                                                                                                                                                                                                        </div> -->
 
                             <div class="row">
                                 <div class="update ml-auto mr-auto">

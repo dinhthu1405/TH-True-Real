@@ -60,7 +60,7 @@
                                 <div class="col-md-6 pr-1">
                                     <div class="form-group">
                                         <label>Tên Phòng</label>
-                                        <select name="VungMien" id="" class="form-control">
+                                        <select name="TenPhong" id="" class="form-control">
                                             <option value="">-- Chọn Phòng--</option>
                                             @foreach ($lstPhongHoc as $phongHoc)
                                                 <option value="{{ $phongHoc->id }}"

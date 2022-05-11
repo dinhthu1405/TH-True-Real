@@ -63,8 +63,9 @@ class AuthController extends Controller
        {
             $request->session()->regenerate();
             $lstLoi = Loi::all()->where('trang_thai', 1);
-            return redirect('/loi/xemLoi');
-            // ->view('component/loi/loi-xemLoi', ['lstLoi' => $lstLoi]);
+            // dd(redirect('loi/xemLoi'));
+            return redirect('loi');
+            // return view('component/loi/loi-xemLoi', ['lstLoi' => $lstLoi]);
        }
         else {
             return back()->with('error', 'Đăng nhập không thành công');

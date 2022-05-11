@@ -1,5 +1,3 @@
-
-
 <?php $__env->startSection('title', 'Trang thêm lỗi'); ?>
 <?php $__env->startSection('content'); ?>
     <?php //Hiển thị thông báo thành công
@@ -42,22 +40,23 @@
             <div class="col-md-10">
                 <div class="card card-user">
                     <div class="card-header">
-                        <h5 class="card-title">Thêm lỗi</h5>
+                        <div class="row">
+                            <div class="col-md-10">
+                                <h5 class="card-title"> Thêm Lỗi</h5>
+                            </div>
+                            <div class="col-md-2">
+                                <a href="<?php echo e(route('loi.index')); ?>" class="">
+                                    <button class="btn btn-success"> <i class="fas fa-reply"></i> Trở về</button>
+                                </a>
+                            </div>
+                        </div>
                     </div>
                     <div class="card-body">
                         <form action="<?php echo e(route('loi.store')); ?>" method="post" enctype="multipart/form-data">
                             <?php echo @csrf_field(); ?>
 
                             <div class="row">
-                                <div class="col-md-6 pr-1">
-                                    <label>Tài khoản</label>
-                                    <select name="User" id="" class="form-control">
-                                        <option value="">-- Chọn Tài Khoản--</option>
-                                        <?php $__currentLoopData = $lstUser; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $user): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                            <option value="<?php echo e($user->id); ?>"><?php echo e($user->email); ?></option>
-                                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                                    </select>
-                                </div>
+                                
                                 <div class="col-md-6 pr-1">
                                     <div class="form-group">
                                         <label>Thời gian</label>
@@ -95,25 +94,25 @@
                                 </div>
                             </div>
                             <!-- <div class="row">
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <div class="form-group">
-                                                            <label for="">Hình ảnh</label>
-                                                            <input type="file" name="images" accept="image/*" class="form-control" id="images" onchange="loadFile(event)" placeholder="Hình ảnh">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div> -->
+                                                                                                                                                                                                                                                                                                                                                            <div class="col-md-6">
+                                                                                                                                                                                                                                                                                                                                                                <div class="form-group">
+                                                                                                                                                                                                                                                                                                                                                                    <div class="form-group">
+                                                                                                                                                                                                                                                                                                                                                                        <label for="">Hình ảnh</label>
+                                                                                                                                                                                                                                                                                                                                                                        <input type="file" name="images" accept="image/*" class="form-control" id="images" onchange="loadFile(event)" placeholder="Hình ảnh">
+                                                                                                                                                                                                                                                                                                                                                                    </div>
+                                                                                                                                                                                                                                                                                                                                                                </div>
+                                                                                                                                                                                                                                                                                                                                                            </div>
+                                                                                                                                                                                                                                                                                                                                                        </div> -->
                             <!-- <div class="row">
-                                                <div class="col-md pr-1">
-                                                    <div class="form-group">
-                                                        <label for="">Hình</label>
-                                                        <div class="user-image col-md-12 text-center">
-                                                            <img id="preview-image" src="<?php echo e(asset('asset/img/khongxacdinh.jpg')); ?>" alt="preview image" style="max-height: 200px;">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div> -->
+                                                                                                                                                                                                                                                                                                                                                            <div class="col-md pr-1">
+                                                                                                                                                                                                                                                                                                                                                                <div class="form-group">
+                                                                                                                                                                                                                                                                                                                                                                    <label for="">Hình</label>
+                                                                                                                                                                                                                                                                                                                                                                    <div class="user-image col-md-12 text-center">
+                                                                                                                                                                                                                                                                                                                                                                        <img id="preview-image" src="<?php echo e(asset('asset/img/khongxacdinh.jpg')); ?>" alt="preview image" style="max-height: 200px;">
+                                                                                                                                                                                                                                                                                                                                                                    </div>
+                                                                                                                                                                                                                                                                                                                                                                </div>
+                                                                                                                                                                                                                                                                                                                                                            </div>
+                                                                                                                                                                                                                                                                                                                                                        </div> -->
 
                             <div class="row">
                                 <div class="update ml-auto mr-auto">

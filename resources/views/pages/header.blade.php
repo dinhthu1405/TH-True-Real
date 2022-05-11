@@ -8,13 +8,16 @@
     <!-- Navbar -->
     <nav class="main-header navbar navbar-expand navbar-white navbar-light">
         <!-- Left navbar links -->
+
         <ul class="navbar-nav">
             <li class="nav-item">
                 <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
             </li>
-            <li class="nav-item d-none d-sm-inline-block">
-                <a href="{{ route('home.index') }}" class="nav-link">Trang Chủ</a>
-            </li>
+            @if (Auth::user()->phan_quyen == 1)
+                <li class="nav-item d-none d-sm-inline-block">
+                    <a href="{{ route('home.index') }}" class="nav-link">Trang Chủ</a>
+                </li>
+            @endif
             {{-- <li class="nav-item d-none d-sm-inline-block">
                 <a href="#" class="nav-link">Kết Nối</a>
             </li> --}}
@@ -263,10 +266,10 @@
                     @endif
                     @if (Auth::user()->phan_quyen == 0)
                         <li class="nav-item">
-                            <a href="{{ route('loi.xemLoi') }}" class="nav-link">
+                            <a href="{{ route('loi.index') }}" class="nav-link">
                                 <i class="nav-icon fas fa-bug"></i>
                                 <p>
-                                    Quản Lý lỗi
+                                    Danh Sách Lỗi
                                     {{-- <i class="fas fa-angle-left right"></i> --}}
                                 </p>
                             </a>
@@ -275,7 +278,7 @@
                             <a href="{{ route('phanCong.index') }}" class="nav-link">
                                 <i class="nav-icon fas fa-tasks"></i>
                                 <p>
-                                    Quản Lý Phân Công
+                                    Phân Công
                                     {{-- <i class="fas fa-angle-left right"></i> --}}
                                 </p>
                             </a>
@@ -378,7 +381,12 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1 class="m-0">Trang Admin</h1>
+
+                        @if (Auth::user()->phan_quyen == 1)
+                            <h1 class="m-0">Trang Admin</h1>
+                        @else
+                            <h1 class="m-0">Trang User</h1>
+                        @endif
                     </div><!-- /.col -->
                 </div><!-- /.row -->
             </div><!-- /.container-fluid -->

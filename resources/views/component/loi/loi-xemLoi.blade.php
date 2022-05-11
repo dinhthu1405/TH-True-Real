@@ -28,7 +28,7 @@
                                 </h4>
                             </div>
                             <div style="padding-top: 18px" class="col-md-2">
-                                <a href="{{ route('loi.create') }}" class="">
+                                <a href="{{ route('loi.themLoi') }}" class="">
                                     <button class="btn btn-success"> <i class="fas fa-plus"></i> Thêm Lỗi</button>
                                 </a>
                             </div>

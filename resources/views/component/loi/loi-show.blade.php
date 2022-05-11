@@ -27,11 +27,19 @@
                                 <h4 style="padding-top: 25px; padding-left: 25px" class="card-title">Thông Tin Lỗi
                                 </h4>
                             </div>
-                            <div style="padding-top: 18px" class="col-md-2">
-                                <a href="{{ route('loi.create') }}" class="">
-                                    <button class="btn btn-success"> <i class="fas fa-plus"></i> Thêm Lỗi</button>
-                                </a>
-                            </div>
+                            @if (Auth::user()->phan_quyen == 1)
+                                <div style="padding-top: 18px" class="col-md-2">
+                                    <a href="{{ route('loi.create') }}" class="">
+                                        <button class="btn btn-success"> <i class="fas fa-plus"></i> Thêm Lỗi</button>
+                                    </a>
+                                </div>
+                            @else
+                                <div style="padding-top: 18px" class="col-md-2">
+                                    <a href="{{ route('loi.themLoi') }}" class="">
+                                        <button class="btn btn-success"> <i class="fas fa-plus"></i> Thêm Lỗi</button>
+                                    </a>
+                                </div>
+                            @endif
                         </div>
                         <div class="card-body">
                             <div class="row">
@@ -43,8 +51,11 @@
                                         <th>Số máy</th>
                                         <th>Tài khoản</th>
                                         <th>Tình trạng lỗi</th>
-                                        <th>Xóa</th>
-                                        <th>Sửa</th>
+                                        @if (Auth::user()->phan_quyen == 1)
+                                            <th>Xóa</th>
+                                            <th>Sửa</th>
+                                        @endif
+
                                     </thead>
                                     @foreach ($lstLoi as $loi)
                                         <tbody>
@@ -55,14 +66,17 @@
                                                 <td>{{ $loi->may->so_may }}</td>
                                                 <td>{{ $loi->user->email }}</td>
                                                 <td>{{ $loi->tinh_trang_loi }}</td>
-                                                <td>
-                                                    <a href="{{ route('loi.xoa', $loi->id) }}"
-                                                        onclick="return confirm('Bạn có chắc muốn xoá máy này')"><button
-                                                            class="btn btn-danger" type="submit">Xóa</button></a>
-                                                    <!-- </a> -->
-                                                </td>
-                                                <td><a href="{{ route('loi.edit', $loi->id) }}"><button
-                                                            class="btn btn-warning">Sửa</button></a></td>
+                                                @if (Auth::user()->phan_quyen == 1)
+                                                    <td>
+                                                        <a href="{{ route('loi.xoa', $loi->id) }}"
+                                                            onclick="return confirm('Bạn có chắc muốn xoá máy này')"><button
+                                                                class="btn btn-danger" type="submit">Xóa</button></a>
+                                                        <!-- </a> -->
+                                                    </td>
+                                                    <td><a href="{{ route('loi.edit', $loi->id) }}"><button
+                                                                class="btn btn-warning">Sửa</button></a></td>
+                                                @endif
+
                                             </tr>
                                         </tbody>
                                     @endforeach
@@ -78,11 +92,19 @@
             <div class="col-md-10">
                 <h2 style="padding-left: 2%">Không tìm thấy lỗi nào</h2>
             </div>
-            <div class="col-md-2">
+            {{-- @if (Auth::user()->phan_quyen == 1)
+                <div style="padding-top: 18px" class="col-md-2">
+                    <a href="{{ route('loi.create') }}" class="">
+                        <button class="btn btn-success"> <i class="fas fa-plus"></i> Thêm Lỗi</button>
+                    </a>
+                </div>
+            @else --}}
+            <div style="padding-top: 18px" class="col-md-2">
                 <a href="{{ route('loi.create') }}" class="">
                     <button class="btn btn-success"> <i class="fas fa-plus"></i> Thêm Lỗi</button>
                 </a>
             </div>
-        </div>
     @endif
+    </div>
+
 @endsection
