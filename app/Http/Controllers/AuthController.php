@@ -41,37 +41,33 @@ class AuthController extends Controller
                 'MatKhau.min' => 'Mật khẩu không được nhỏ hơn 6 ký tự',
             ]
         );
-        $user_data = (['email' => $request->Email, 'password' => $request->MatKhau, 'trang_thai'=>1]);
-        $user=User::all()->where('trang_thai',0);
+        $user_data = (['email' => $request->Email, 'password' => $request->MatKhau, 'trang_thai' => 1]);
+        $user = User::all()->where('trang_thai', 0);
         // $user=Auth::check();
         //  dd($user);
-    //     if($user){
-    //         Auth::logout();
+        //     if($user){
+        //         Auth::logout();
 
-    //         $request->session()->invalidate();
+        //         $request->session()->invalidate();
 
-    //         $request->session()->regenerateToken();
+        //         $request->session()->regenerateToken();
 
-    //         return back()->with('error', 'Tài khoản của bạn đã bị khóa, hãy liên hệ với Admin.');
+        //         return back()->with('error', 'Tài khoản của bạn đã bị khóa, hãy liên hệ với Admin.');
 
-    // }else
-         if (Auth::attempt($user_data) && Auth::user()->phan_quyen == 1) {
+        // }else
+        if (Auth::attempt($user_data) && Auth::user()->phan_quyen == 1) {
             $request->session()->regenerate();
             return redirect('/home')->with('success', 'Đăng nhập thành công');
-        }
-       else if(Auth::attempt($user_data) && Auth::user()->phan_quyen == 0)
-       {
+        } else if (Auth::attempt($user_data) && Auth::user()->phan_quyen == 0) {
             $request->session()->regenerate();
             $lstLoi = Loi::all()->where('trang_thai', 1);
             // dd(redirect('loi/xemLoi'));
             return redirect('loi');
             // return view('component/loi/loi-xemLoi', ['lstLoi' => $lstLoi]);
-       }
-        else {
+        } else {
             return back()->with('error', 'Đăng nhập không thành công');
         }
-
-}
+    }
 
     public function register()
     {
@@ -103,7 +99,7 @@ class AuthController extends Controller
             'sdt' => '',
             'ngay_sinh' => date('Y-m-d'),
             'phan_quyen' => 1,
-            'phong_id'=>1,
+            'phong_id' => 1,
         ]);
         $user->save();
         // dd($user);

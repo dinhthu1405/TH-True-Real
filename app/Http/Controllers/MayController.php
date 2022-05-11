@@ -50,8 +50,8 @@ class MayController extends Controller
             'so_may' => $request->input('SoMay'),
             'phong_id' => $request->input('Phong'),
         ]);
-        $ktMay = May::where('so_may', $request->input('SoMay'))->first();
-        // return ($ktDiaDanh);
+        $ktMay = May::where([['so_may', $request->input('SoMay')], ['phong_id', $request->input('Phong')]])->first();
+        // dd($ktMay);
         if ($ktMay) {
             return Redirect::back()->with('error', 'Máy đã tồn tại');
         } else {
@@ -82,8 +82,7 @@ class MayController extends Controller
         //
         $lstMay = May::all();
         $lstPhongHoc = PhongHoc::all();
-        return view('component/may/may-edit', ['lstMay' => $lstMay, 'lstPhongHoc' => $lstPhongHoc, 'may'=>$may]);
-
+        return view('component/may/may-edit', ['lstMay' => $lstMay, 'lstPhongHoc' => $lstPhongHoc, 'may' => $may]);
     }
 
     /**
