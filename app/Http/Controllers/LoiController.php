@@ -36,7 +36,7 @@ class LoiController extends Controller
         $lstMay = May::all();
         $lstLoi = Loi::all();
         $lstUser = User::all();
-        return view('component/loi/loi-create', ['lstLoi' => $lstLoi, 'lstPhongHoc' => $lstPhongHoc, 'lstMay' => $lstMay,'lstUser' => $lstUser]);
+        return view('component/loi/loi-create', ['lstLoi' => $lstLoi, 'lstPhongHoc' => $lstPhongHoc, 'lstMay' => $lstMay, 'lstUser' => $lstUser]);
     }
 
     /**
@@ -58,7 +58,7 @@ class LoiController extends Controller
             'phong_id' => $request->input('Phong'),
             'tinh_trang_loi' => 'Chưa sửa',
         ]);
-        $ktLoi = Loi::where('ten_loi', $request->input('TenLoi'))->first();
+        $ktLoi = Loi::where([['ten_loi', $request->input('TenLoi')], ['phong_id', $request->input('Phong')], ['may_id', $request->input('May')]])->first();
         // return ($ktDiaDanh);
 
         if ($ktLoi) {
@@ -91,7 +91,6 @@ class LoiController extends Controller
     public function xemLoi()
     {
         //
-
         $lstLoi = Loi::all()->where('trang_thai', 1);
         return view('component/loi/loi-xemLoi', ['lstLoi' => $lstLoi]);
     }
@@ -103,9 +102,9 @@ class LoiController extends Controller
         $lstMay = May::all();
         $lstLoi = Loi::all();
         $lstUser = User::all();
-        return view('component/loi/loi-themLoi', ['lstLoi' => $lstLoi, 'lstPhongHoc' => $lstPhongHoc, 'lstMay' => $lstMay,'lstUser' => $lstUser]);
+        return view('component/loi/loi-themLoi', ['lstLoi' => $lstLoi, 'lstPhongHoc' => $lstPhongHoc, 'lstMay' => $lstMay, 'lstUser' => $lstUser]);
     }
-    public function themLois()
+    public function themLois(Request $request)
     {
         //
         $loi = new Loi();
@@ -116,9 +115,9 @@ class LoiController extends Controller
             'user_id' => $email,
             'may_id' => $request->input('May'),
             'phong_id' => $request->input('Phong'),
-            'tinh_trang_loi' => implode(',',$request->input('checkBox')),
+            'tinh_trang_loi' => implode(',', $request->input('checkBox')),
         ]);
-        $ktLoi = Loi::where(['ten_loi', $request->input('TenLoi')], ['may_id', $request->input('May')],[['phong_id', $request->input('Phong')]])->first();
+        $ktLoi = Loi::where(['ten_loi', $request->input('TenLoi')], ['may_id', $request->input('May')], [['phong_id', $request->input('Phong')]])->first();
         // return ($ktDiaDanh);
 
         if ($ktLoi) {
@@ -141,8 +140,7 @@ class LoiController extends Controller
         $lstPhongHoc = PhongHoc::all();
         $lstMay = May::all();
         $lstLoi = Loi::all();
-        return view('component/loi/loi-edit', ['lstLoi' => $lstLoi, 'lstPhongHoc' => $lstPhongHoc, 'lstMay' => $lstMay,'loi'=>$loi]);
-
+        return view('component/loi/loi-edit', ['lstLoi' => $lstLoi, 'lstPhongHoc' => $lstPhongHoc, 'lstMay' => $lstMay, 'loi' => $loi]);
     }
 
     /**
