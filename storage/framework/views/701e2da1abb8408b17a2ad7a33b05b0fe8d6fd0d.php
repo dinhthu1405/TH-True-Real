@@ -8,13 +8,16 @@
     <!-- Navbar -->
     <nav class="main-header navbar navbar-expand navbar-white navbar-light">
         <!-- Left navbar links -->
+
         <ul class="navbar-nav">
             <li class="nav-item">
                 <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
             </li>
-            <li class="nav-item d-none d-sm-inline-block">
-                <a href="<?php echo e(route('home.index')); ?>" class="nav-link">Trang Chủ</a>
-            </li>
+            <?php if(Auth::user()->phan_quyen == 1): ?>
+                <li class="nav-item d-none d-sm-inline-block">
+                    <a href="<?php echo e(route('home.index')); ?>" class="nav-link">Trang Chủ</a>
+                </li>
+            <?php endif; ?>
             
         </ul>
 
@@ -49,7 +52,7 @@
                     <b class="caret"></b>
                 </a>
                 <ul class="dropdown-menu dropdown-user">
-                    <a href="#" class="dropdown-item">
+                    <a href="<?php echo e(route('taiKhoan.maneger', ['id' => Auth::user()->id])); ?>" class="dropdown-item">
                         <i class="fa fa-user fa-spin"></i> Thông Tin Người Dùng
                     </a>
                     <div class="dropdown-divider"></div>
@@ -114,220 +117,148 @@
                     data-accordion="false">
                     <!-- Add icons to the links using the .nav-icon class
                  with font-awesome or any other icon font library -->
-                    <li class="nav-item">
-                        <a href="<?php echo e(route('home.index')); ?>" class="nav-link">
-                            <i class="nav-icon fas fa-home"></i>
-                            <p>
-                                Trang chủ
-                                <span class="right badge badge-danger"></span>
-                            </p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#" class="nav-link">
-                            <i class="nav-icon fas fa-table"></i>
-                            <p>
-                                Quản Lý Phòng
-                                <i class="right fas fa-angle-left"></i>
-                            </p>
-                        </a>
-                        <ul class="nav nav-treeview">
-                            <li class="nav-item">
-                                <a href="<?php echo e(route('phongHoc.index')); ?>" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Xem Phòng</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="<?php echo e(route('phongHoc.create')); ?>" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Thêm Phòng</p>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#" class="nav-link">
-                            <i class="nav-icon fas fa-desktop"></i>
-                            <p>
-                                Quản Lý Máy
-                                <i class="right fas fa-angle-left"></i>
-                            </p>
-                        </a>
-                        <ul class="nav nav-treeview">
-                            <li class="nav-item">
-                                <a href="<?php echo e(route('may.index')); ?>" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Xem Máy</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="<?php echo e(route('may.create')); ?>" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Thêm Máy</p>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#" class="nav-link">
-                            <i class="nav-icon fas fa-bug"></i>
-                            <p>
-                                Quản Lý lỗi
-                                <i class="fas fa-angle-left right"></i>
-                            </p>
-                        </a>
-                        <ul class="nav nav-treeview">
-                            <li class="nav-item">
-                                <a href="<?php echo e(route('loi.index')); ?>" class="nav-link">
-
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Xem lỗi</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="<?php echo e(route('loi.create')); ?>" class="nav-link">
-
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Thêm lỗi</p>
-                                </a>
-                            </li>
-                            
-                        </ul>
-
-                    </li>
-                    <li class="nav-item">
-                        <a href="#" class="nav-link">
-                            <i class="nav-icon fas fa-user"></i>
-                            <p>
-                                Quản Lý Tài Khoản
-                                <i class="fas fa-angle-left right"></i>
-                            </p>
-                        </a>
-                        <ul class="nav nav-treeview">
-                            <li class="nav-item">
-                                <a href="<?php echo e(route('taiKhoan.index')); ?>" class="nav-link">
+                    <?php if(Auth::user()->phan_quyen == 1): ?>
+                        <li class="nav-item">
+                            <a href="<?php echo e(route('home.index')); ?>" class="nav-link">
+                                <i class="nav-icon fas fa-home"></i>
+                                <p>
+                                    Trang chủ
+                                    <span class="right badge badge-danger"></span>
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="<?php echo e(route('phongHoc.index')); ?>" class="nav-link">
+                                <i class="nav-icon fas fa-table"></i>
+                                <p>
+                                    Quản Lý Phòng
                                     
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Xem Tài Khoản</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="<?php echo e(route('taiKhoan.create')); ?>" class="nav-link">
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="<?php echo e(route('may.index')); ?>" class="nav-link">
+                                <i class="nav-icon fas fa-desktop"></i>
+                                <p>
+                                    Quản Lý Máy
+                                    
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="<?php echo e(route('loi.index')); ?>" class="nav-link">
+                                <i class="nav-icon fas fa-bug"></i>
+                                <p>
+                                    Quản Lý lỗi
+                                    
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="<?php echo e(route('phanCong.index')); ?>" class="nav-link">
+                                <i class="nav-icon fas fa-tasks"></i>
+                                <p>
+                                    Quản Lý Phân Công
+                                    
+                                </p>
+                            </a>
 
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Thêm Tài Khoản</p>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
+                        </li>
+                    <?php endif; ?>
+                    <?php if(Auth::user()->phan_quyen == 0): ?>
+                        <li class="nav-item">
+                            <a href="<?php echo e(route('loi.index')); ?>" class="nav-link">
+                                <i class="nav-icon fas fa-bug"></i>
+                                <p>
+                                    Danh Sách Lỗi
+                                    
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="<?php echo e(route('phanCong.index')); ?>" class="nav-link">
+                                <i class="nav-icon fas fa-tasks"></i>
+                                <p>
+                                    Phân Công
+                                    
+                                </p>
+                            </a>
 
-                    <li class="nav-item">
-                        <a href="#" class="nav-link">
-                            <i class="nav-icon fas fa-tasks"></i>
-                            <p>
-                                Quản Lý Ca Học
-                                <i class="fas fa-angle-left right"></i>
-                            </p>
-                        </a>
-                        <ul class="nav nav-treeview">
-                            <li class="nav-item">
-                                <a href="<?php echo e(route('caHoc.index')); ?>" class="nav-link">
+                        </li>
+                    <?php endif; ?>
+                    <?php if(Auth::user()->phan_quyen == 1): ?>
+                        <li class="nav-item">
+                            <a href="<?php echo e(route('taiKhoan.index')); ?>" class="nav-link">
+                                <i class="nav-icon fas fa-user"></i>
+                                <p>
+                                    Quản Lý Tài Khoản
+                                    
+                                </p>
+                            </a>
+                        </li>
 
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Xem ca học</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="<?php echo e(route('caHoc.create')); ?>" class="nav-link">
 
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Thêm ca học</p>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
+                        <li class="nav-item">
+                            <a href="<?php echo e(route('lopHoc.index')); ?>" class="nav-link">
+                                <i class="nav-icon fas fa-school"></i>
+                                <p>
+                                    Quản Lý Lớp Học
+                                    
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="<?php echo e(route('giangVien.index')); ?>" class="nav-link">
+                                <i class="nav-icon fas fa-chalkboard-teacher"></i>
+                                <p>
+                                    Quản Lý Giảng Viên
+                                    
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="<?php echo e(route('viPham.index')); ?>" class="nav-link">
+                                <i class="nav-icon 	fas fa-user-slash"></i>
+                                <p>
+                                    Quản Lý Vi Phạm
+                                    
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fas fa-stream"></i>
+                                <p>
+                                    Thống kê
+                                    <i class="fas fa-angle-left right"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    
+                                    <a href="#" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Thống kê máy lỗi</p>
+                                    </a>
+                                </li>
+                            </ul>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    
+                                    <a href="#" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Thống kê máy lỗi đã sửa</p>
+                                    </a>
+                                </li>
+                            </ul>
+                            
+                        </li>
+                    <?php endif; ?>
                     <li class="nav-item">
-                        <a href="#" class="nav-link">
-                            <i class="nav-icon fas fa-school"></i>
-                            <p>
-                                Quản Lý Lớp Học
-                                <i class="fas fa-angle-left right"></i>
-                            </p>
+                        <a href="<?php echo e(route('logout')); ?>" class="nav-link">
+                            <button class="btn btn-danger"> <i class="fas fa-sign-out-alt fa-fw"></i> Đăng
+                                Xuất</button>
                         </a>
-                        <ul class="nav nav-treeview">
-                            <li class="nav-item">
-                                <a href="<?php echo e(route('lopHoc.index')); ?>" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Xem Lớp Học</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="<?php echo e(route('lopHoc.create')); ?>" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Thêm Lớp Học</p>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#" class="nav-link">
-                            <i class="nav-icon fas fa-chalkboard-teacher"></i>
-                            <p>
-                                Quản Lý Giảng Viên
-                                <i class="fas fa-angle-left right"></i>
-                            </p>
-                        </a>
-                        <ul class="nav nav-treeview">
-                            <li class="nav-item">
-                                <a href="<?php echo e(route('giangVien.index')); ?>" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Xem Giảng Viên</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="<?php echo e(route('giangVien.create')); ?>" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Thêm Giảng Viên</p>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#" class="nav-link">
-                            <i class="nav-icon fas fa-stream"></i>
-                            <p>
-                                Thống kê
-                                <i class="fas fa-angle-left right"></i>
-                            </p>
-                        </a>
-                        <ul class="nav nav-treeview">
-                            <li class="nav-item">
-                                
-                                <a href="#" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Thống kê máy lỗi</p>
-                                </a>
-                            </li>
-                        </ul>
-                        <ul class="nav nav-treeview">
-                            <li class="nav-item">
-                                
-                                <a href="#" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Thống kê máy lỗi đã sửa</p>
-                                </a>
-                            </li>
-                        </ul>
-                        <ul class="nav nav-treeview">
-                            <li class="nav-item">
-                                
-                                <a href="#" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Thống kê vi phạm</p>
-                                </a>
-                            </li>
-                        </ul>
                     </li>
                     </li>
                 </ul>
@@ -343,7 +274,12 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1 class="m-0">Trang Admin</h1>
+
+                        <?php if(Auth::user()->phan_quyen == 1): ?>
+                            <h1 class="m-0">Trang Admin</h1>
+                        <?php else: ?>
+                            <h1 class="m-0">Trang User</h1>
+                        <?php endif; ?>
                     </div><!-- /.col -->
                 </div><!-- /.row -->
             </div><!-- /.container-fluid -->

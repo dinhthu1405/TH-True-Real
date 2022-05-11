@@ -46,7 +46,7 @@ Route::get('/giangVien/xoa/{id}', [GiangVienController::class, 'xoa'])->name('gi
 Route::get('/may/xoa/{id}', [MayController::class, 'xoa'])->name('may.xoa')->middleware('auth');
 Route::get('/taiKhoan/xoa/{id}', [UserController::class, 'xoa'])->name('taiKhoan.xoa')->middleware('auth');
 Route::get('/loi/xoa/{id}', [LoiController::class, 'xoa'])->name('loi.xoa')->middleware('auth');
-Route::get('/caHoc/xoa/{id}', [CaHocController::class, 'xoa'])->name('caHoc.xoa')->middleware('auth');
+Route::get('/phanCong/xoa/{id}', [PhanCongController::class, 'xoa'])->name('phanCong.xoa')->middleware('auth');
 Route::get('/phanCong/xoa/{id}', [PhanCongController::class, 'xoa'])->name('phanCong.xoa')->middleware('auth');
 Route::get('/viPham/xoa/{id}', [ViPhamController::class, 'xoa'])->name('viPham.xoa')->middleware('auth');
 //Authorize
@@ -58,7 +58,7 @@ Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
 //Route
 Route::get('/taiKhoan/maneger/{id}', [UserController::class, 'maneger'])->name('taiKhoan.maneger')->middleware('auth');
-Route::get('/loi/xemLoi', [LoiController::class, 'xemLoi'])->name('loi.xemLoi')->middleware('auth');
+// Route::get('/loi/xemLoi', [LoiController::class, 'xemLoi'])->name('loi.xemLoi')->middleware('auth');
 Route::get('/loi/themLoi', [LoiController::class, 'themLoi'])->name('loi.themLoi')->middleware('auth');
 Route::post('/loi/themLoi/{id}', [LoiController::class, 'themLois'])->name('loi.themLois')->middleware('auth');
 

@@ -1,6 +1,6 @@
 @extends('layouts.app', ['pageId' => ''])
 
-@section('title', 'Trang thêm ca học')
+@section('title', 'Trang Sửa Phân Công')
 @section('content')
     <?php //Hiển thị thông báo thành công
     ?>
@@ -43,10 +43,11 @@
             <div class="col-md-10">
                 <div class="card card-user">
                     <div class="card-header">
-                        <h5 class="card-title">Thêm Ca Học</h5>
+                        <h5 class="card-title">Sửa Phân Công</h5>
                     </div>
                     <div class="card-body">
-                        <form action="{{ route('caHoc.update') }}" method="post" enctype="multipart/form-data">
+                        <form action="{{ route('phanCong.update', ['phanCong' => $phanCong]) }}" method="post"
+                            enctype="multipart/form-data">
                             {!! @csrf_field() !!}
                             <div class="row">
                                 <div class="col-md-4 pr-1">
@@ -55,15 +56,16 @@
                                         <select name="TenNguoiTruc" id="" class="form-control">
                                             <option value="">-- Chọn Người Trực--</option>
                                             @foreach ($lstUser as $user)
-                                                <option value="{{ $user->id }}">
+                                                <option value="{{ $user->id }}"
+                                                    @if ($user->id == $phanCong->user_id) selected @endif>
                                                     {{ $user->ho_ten }}</option>
                                             @endforeach
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col-md-6 pr-1">
-                                    <label>Chọn Ca</label>
+                                <div class="col-md-4 pr-1">
                                     <div class="form-group">
+                                        <label>Chọn Ca</label>
                                         <div class="row">
                                             <div class="col-md-2">
                                                 <input type="checkbox" name="checkBox[]" value="1"> 1 <br />
@@ -77,18 +79,22 @@
                                         </div>
 
                                     </div>
-                                </div>                          
-                            </div>
-                            <div class="row">                            
-                                <div class="col-md-4 pr-1">
-                                    <label>Phòng</label>
-                                    <select name="TenPhong" id="" class="form-control">
-                                        <option value="">-- Chọn phòng--</option>
-                                        @foreach ($lstPhongHoc as $phongHoc)
-                                            <option value="{{ $phongHoc->id }}">{{ $phongHoc->ten_phong }}</option>
-                                        @endforeach
-                                    </select>
                                 </div>
+                                <div class="col-md-4 pr-1">
+                                    <div class="form-group">
+                                        <label>Phòng</label>
+                                        <select name="TenPhong" id="" class="form-control">
+                                            <option value="">-- Chọn Phòng--</option>
+                                            @foreach ($lstPhongHoc as $phongHoc)
+                                                <option value="{{ $phongHoc->id }}"
+                                                    @if ($phongHoc->id == $phanCong->phong_id) selected @endif>
+                                                    {{ $phongHoc->ten_phong }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
                                 <div class="col-md-4 pr-1">
                                 </div>
                             </div>
@@ -97,14 +103,14 @@
                                     <div class="form-group">
                                         <label>Ngày bắt đầu</label>
                                         <input type="date" name="NgayBatDau" class="form-control"
-                                            placeholder="Ngày bắt đầu">
+                                            value="{{ $phanCong->ngay_bat_dau }}">
                                     </div>
                                 </div>
                                 <div class="col-md-6 pr-1">
                                     <div class="form-group">
                                         <label>Ngày kết thúc</label>
                                         <input type="date" name="NgayKetThuc" class="form-control"
-                                            placeholder="Ngày kết thúc">
+                                            value="{{ $phanCong->ngay_ket_thuc }}">
                                     </div>
                                 </div>
                             </div>
@@ -112,7 +118,7 @@
                             <br>
                             <div class="row">
                                 <div class="update ml-auto mr-auto">
-                                    <button type="submit" class="btn btn-primary btn-round">Thêm Phân Công</button>
+                                    <button type="submit" class="btn btn-primary btn-round">Sửa Phân Công</button>
                                 </div>
                             </div>
                         </form>

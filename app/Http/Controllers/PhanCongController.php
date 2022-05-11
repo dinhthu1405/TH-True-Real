@@ -36,9 +36,9 @@ class PhanCongController extends Controller
         $lstUser=User::all();
         $lstPhanCong=PhanCong::all();
         $lstPhongHoc=PhongHoc::all();
-        $lstGiangVien=GiangVien::all();
-        $lstLop=LopHoc::all();
-        return view('component/phan-cong/phancong-create',['lstPhanCong'=>$lstPhanCong,'lstPhongHoc'=>$lstPhongHoc,'lstGiangVien'=>$lstGiangVien,'lstLop'=>$lstLop,'lstUser'=>$lstUser]);
+        // $lstGiangVien=GiangVien::all();
+        // $lstLop=LopHoc::all();
+        return view('component/phan-cong/phancong-create',['lstPhanCong'=>$lstPhanCong,'lstPhongHoc'=>$lstPhongHoc,'lstUser'=>$lstUser]);
     }
 
     /**
@@ -51,7 +51,6 @@ class PhanCongController extends Controller
     {
         //
         $phanCong = new PhanCong();
-
         $phanCong->fill([
         'ngay_bat_dau'=> $request->input('NgayBatDau'),
         'ngay_ket_thuc'=> $request->input('NgayKetThuc'),
@@ -95,11 +94,11 @@ class PhanCongController extends Controller
     public function edit(PhanCong $phanCong)
     {
         //
+        $lstUser=User::all();
         $lstPhanCong=PhanCong::all();
         $lstPhongHoc=PhongHoc::all();
-        $lstGiangVien=GiangVien::all();
-        return view('component/ca-hoc/cahoc-edit',['lstPhanCong'=>$lstPhanCong],['lstPhongHoc'=>$lstPhongHoc],['lstGiangVien'=>$lstGiangVien]);
-
+        // $lstGiangVien=GiangVien::all();
+        return view('component/phan-cong/phancong-edit',['phanCong'=>$phanCong,'lstUser'=>$lstUser,'lstPhanCong'=>$lstPhanCong,'lstPhongHoc'=>$lstPhongHoc]);
     }
 
     /**

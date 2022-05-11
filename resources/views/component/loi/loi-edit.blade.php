@@ -52,12 +52,23 @@
                             {{ csrf_field() }}
                             @method('PATCH')
                             <div class="row">
-
                                 <div class="col-md-6">
                                     <label>Tài Khoản</label>
                                     <div class="form-group">
                                         <input disabled type="text" name="TaiKhoan" class="form-control"
                                             placeholder="Tài Khoản" value="{{ Auth::user()->email }}">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Tình Trạng</label> <br />
+                                        @if ($loi->tinh_trang_loi === 'Chưa sửa')
+                                            <input type="checkbox" name="checkBox[]" value="Chưa sửa" checked="">
+                                            Chưa
+                                            sửa<br />
+                                        @else
+                                            <input type="checkbox" name="checkBox[]" value="Đã sửa"> Đã sửa <br />
+                                        @endif
                                     </div>
                                 </div>
                             </div>
@@ -99,6 +110,9 @@
                                                 {{ $may->so_may }}</option>
                                         @endforeach
                                     </select>
+                                </div>
+                                <div class="col-md-6 pr-1">
+
                                 </div>
                             </div>
                             <br>

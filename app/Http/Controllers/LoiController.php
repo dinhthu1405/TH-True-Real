@@ -56,6 +56,7 @@ class LoiController extends Controller
             'user_id' => $email,
             'may_id' => $request->input('May'),
             'phong_id' => $request->input('Phong'),
+            'tinh_trang_loi' => 'Chưa sửa',
         ]);
         $ktLoi = Loi::where('ten_loi', $request->input('TenLoi'))->first();
         // return ($ktDiaDanh);
@@ -90,7 +91,7 @@ class LoiController extends Controller
     public function xemLoi()
     {
         //
-          
+
         $lstLoi = Loi::all()->where('trang_thai', 1);
         return view('component/loi/loi-xemLoi', ['lstLoi' => $lstLoi]);
     }

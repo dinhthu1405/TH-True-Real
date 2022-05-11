@@ -1,5 +1,3 @@
-
-
 <?php $__env->startSection('title', 'Trang thêm máy'); ?>
 <?php $__env->startSection('content'); ?>
     <?php //Hiển thị thông báo thành công
@@ -43,7 +41,16 @@
             <div class="col-md-10">
                 <div class="card card-user">
                     <div class="card-header">
-                        <h5 class="card-title">Thêm Máy</h5>
+                        <div class="row">
+                            <div class="col-md-10">
+                                <h5 class="card-title">Thêm Máy</h5>
+                            </div>
+                            <div class="col-md-2">
+                                <a href="<?php echo e(route('may.index')); ?>" class="">
+                                    <button class="btn btn-success"> <i class="fas fa-reply"></i> Trở về</button>
+                                </a>
+                            </div>
+                        </div>
                     </div>
                     <div class="card-body">
                         <form action="<?php echo e(route('may.store')); ?>" method="post" enctype="multipart/form-data">

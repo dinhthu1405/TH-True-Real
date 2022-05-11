@@ -46,8 +46,10 @@
                                         <th>Ngày kết thúc</th>
                                         {{-- <th>Tên lớp</th>
                                         <th>Tên giảng viên</th> --}}
-                                        <th>Xóa</th>
-                                        <th>Sửa</th>
+                                        @if (Auth::user()->phan_quyen == 1)
+                                            <th>Xóa</th>
+                                            <th>Sửa</th>
+                                        @endif
                                     </thead>
                                     @foreach ($lstPhanCong as $phanCong)
                                         <tbody>
@@ -59,14 +61,18 @@
                                                 <td>{{ $phanCong->ten_ca }}</td>
                                                 {{-- <td>{{ Str::limit($phanCong->lopHocs->ten_lop, 15) }}</td>
                                                 <td>{{ $phanCong->giangViens->ten_giang_vien }}</td> --}}
-                                                <td>
-                                                    <a href="{{ route('phanCong.xoa', $phanCong->id) }}"
-                                                        onclick="return confirm('Bạn có chắc muốn xoá ca học này, vì nó có thể ảnh hưởng đến ca học')"><button
-                                                            class="btn btn-danger" type="submit">Xóa</button></a>
-                                                    <!-- </a> -->
-                                                </td>
-                                                <td><a href="{{ route('phanCong.edit', $phanCong->id) }}"><button
-                                                            class="btn btn-warning">Sửa</button></a></td>
+                                                @if (Auth::user()->phan_quyen == 1)
+                                                    <td>
+                                                        <a href="{{ route('phanCong.xoa', $phanCong->id) }}"
+                                                            onclick="return confirm('Bạn có chắc muốn xoá ca học này, vì nó có thể ảnh hưởng đến ca học')"><button
+                                                                class="btn btn-danger" type="submit">Xóa</button></a>
+                                                        <!-- </a> -->
+                                                    </td>
+                                                    <td>
+                                                        <a href="{{ route('phanCong.edit', $phanCong->id) }}"><button
+                                                                class="btn btn-warning">Sửa</button></a>
+                                                    </td>
+                                                @endif
                                             </tr>
                                         </tbody>
                                     @endforeach
@@ -82,11 +88,13 @@
             <div class="col-md-10">
                 <h2 style="padding-left: 2%">Không tìm thấy ca học nào</h2>
             </div>
-            <div class="col-md-2">
-                <a href="{{ route('phanCong.create') }}" class="">
-                    <button class="btn btn-success"> <i class="fas fa-plus"></i> Thêm Ca</button>
-                </a>
-            </div>
+            @if (Auth::user()->phan_quyen == 1)
+                <div class="col-md-2">
+                    <a href="{{ route('phanCong.create') }}" class="">
+                        <button class="btn btn-success"> <i class="fas fa-plus"></i> Thêm Ca</button>
+                    </a>
+                </div>
+            @endif
         </div>
     @endif
 @endsection

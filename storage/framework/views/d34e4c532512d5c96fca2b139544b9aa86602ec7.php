@@ -1,23 +1,40 @@
 <?php $__env->startSection('title', 'Trang quản lí tài khoản'); ?>
 <?php $__env->startSection('content'); ?>
-    
-    <div class="card-header">
-        <div class="row">
-            <div class="col-md-10">
-                <h4 style="padding-top: 10px" class="card-title">Thông Tin Tài Khoản</h4>
-            </div>
-            <div class="col-md-2">
-                <a href="<?php echo e(route('taiKhoan.create')); ?>"><button class="btn btn-success">Thêm
-                        Tài Khoản</button></a>
-            </div>
-        </div>
-    </div>
+
+
     <?php if($lstTaiKhoan->isNotEmpty()): ?>
+        <section class="content" style="padding-left: 2%; padding-bottom: 2%">
+            <form action="#" method="post">
+                <?php echo e(csrf_field()); ?>
+
+
+                <div class="row">
+                    <div class="col-md-4">
+                        <input class="form-control" type="search" name="search" required />
+                    </div>
+                    <div class="col-md-2">
+                        <button type="submit" class="form-control btn btn-primary"><i class="fas fa-search fa-fw"></i> Tìm
+                            kiếm</button>
+                    </div>
+                </div>
+            </form>
+        </section>
         <section class="content">
             <div class="row">
                 <div class="col-md-12">
                     <div class="card">
-                        
+
+                        <div class="row">
+                            <div class="col-md-10">
+                                <h4 style="padding-top: 25px; padding-left: 25px" class="card-title">Thông Tin Tài Khoản
+                                </h4>
+                            </div>
+                            <div style="padding-top: 18px" class="col-md-2">
+                                <a href="<?php echo e(route('taiKhoan.create')); ?>" class="">
+                                    <button class="btn btn-success"> <i class="fas fa-plus"></i> Thêm Tài Khoản</button>
+                                </a>
+                            </div>
+                        </div>
                         <div class="card-body">
                             <div class="row">
                                 <table class="table" style="text-align: center;">
@@ -28,7 +45,7 @@
                                         <th>Số điện thoại</th>
                                         <th>Ngày Sinh</th>
                                         <th>Loại Tài Khoản</th>
-                                        
+                                        <th>Phòng</th>
                                         <th>Khóa</th>
                                         <th>Sửa</th>
                                     </thead>
@@ -48,7 +65,7 @@
                                                     <?php else: ?>
                                                         <td>Người dùng</td>
                                                     <?php endif; ?>
-                                                    
+                                                    <td><?php echo e($taiKhoan->phongHocs->ten_phong); ?></td>
                                                     <td>
                                                         <a href="<?php echo e(route('taiKhoan.xoa', $taiKhoan->id)); ?>"
                                                             onclick="return confirm('Bạn có chắc muốn mở khoá tài khoản này')"><button
@@ -97,8 +114,15 @@
             </div>
         </section>
     <?php else: ?>
-        <div>
-            <h2 style="padding-left: 2%">Không tìm thấy tài khoản nào</h2>
+        <div class="row">
+            <div class="col-md-10">
+                <h2 style="padding-left: 2%">Không tìm thấy tài khoản nào</h2>
+            </div>
+            <div class="col-md-2">
+                <a href="<?php echo e(route('taiKhoan.create')); ?>" class="">
+                    <button class="btn btn-success"> <i class="fas fa-plus"></i> Thêm Tài Khoản</button>
+                </a>
+            </div>
         </div>
     <?php endif; ?>
 <?php $__env->stopSection(); ?>
