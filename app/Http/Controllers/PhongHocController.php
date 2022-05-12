@@ -16,7 +16,7 @@ class PhongHocController extends Controller
     public function index()
     {
         //
-        $lstPhongHoc=PhongHoc::all()->where('trang_thai',1);
+        $lstPhongHoc=PhongHoc::all()->where('trang_thai',1)->sortBy(['ten_phong', 'DESC']);
         return view('component/phong-hoc/phonghoc-show',['lstPhongHoc'=>$lstPhongHoc]);
     }
 

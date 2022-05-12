@@ -93,7 +93,8 @@ class GiangVienController extends Controller
         $giangVien->fill([
             'ten_giang_vien'=>$request->input('TenGiangVien'),
         ]);
-        $ktGiangVien=GiangVien::where([['id',$giangVien->id], ['ten_giang_vien',$request->input('TenGiangVien')]])->first();
+        $ktGiangVien=GiangVien::where('ten_giang_vien',$request->input('TenGiangVien'))->first();
+        // dd($ktGiangVien);
         if(!$ktGiangVien){
             $giangVien->save();
             return Redirect::route('giangVien.index')->with('success','Sửa giảng viên thành công');

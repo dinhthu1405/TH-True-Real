@@ -102,8 +102,9 @@ class UserController extends Controller
         }
         if ($request->hasFile('images')) {
             $taiKhoan->hinh_anh = $request->file('images')->store('images/taiKhoan/' . $taiKhoan->id, 'public');
+            $taiKhoan->save();
         }
-        $taiKhoan->save();
+
         // dd($taiKhoan);
         return Redirect::route('taiKhoan.index')->with('success', 'Thêm tài khoản thành công');
     }
@@ -135,12 +136,7 @@ class UserController extends Controller
     public function edit(User $taiKhoan)
     {
         //
-        $lstTaiKhoan = User::all();
-        foreach ($lstTaiKhoan as $taiKhoan) {
-            $this->fixImage($taiKhoan);
-            //gọi fixImage cho từng sản phẩm, do lúc seed chỉ có dữ liệu giả
-        }
-        return view('component/tai-khoan/taikhoan-edit', ['taiKhoan' => $taiKhoan, 'lstTaiKhoan' => $lstTaiKhoan]);
+        return view('component/tai-khoan/taikhoan-edit', ['taiKhoan' => $taiKhoan]);
     }
 
     /**
@@ -170,19 +166,16 @@ class UserController extends Controller
                 'HoTen.max' => 'Họ tên không được vượt quá 255 ký tự',
             ]
         );
-        // $ktDTaiKhoan = User::where('email', $request->input('Email'))->select('phan_
-        // quyen')->first();
         if ($request->hasFile('images')) {
             $taiKhoan->hinh_anh = $request->file('images')->store('images/taiKhoan/' . $taiKhoan->id, 'public');
         }
         // $isValid = password_verify($password, $hash);
         $taiKhoan->fill([
-
             'password' => $request->input('MatKhau'),
             'ho_ten' => $request->input('HoTen'),
             'sdt' => $request->input('SDT'),
             'ngay_sinh' => $request->input('NgaySinh'),
-            'phan_quyen' => 0,
+            'phan_quyen' => $request->input('PhanQuyen'),
         ]);
         $taiKhoan->save();
         // dd($taiKhoan);
