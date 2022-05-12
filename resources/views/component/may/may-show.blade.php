@@ -39,7 +39,6 @@
                             <div class="row">
                                 <table class="table" style="text-align: center;">
                                     <thead class="text-primary">
-                                        <th>STT</th>
                                         {{-- <th>Tên tài khoản</th> --}}
                                         <th>Phòng</th>
                                         <th>Số máy</th>
@@ -49,7 +48,6 @@
                                     @foreach ($lstMay as $may)
                                         <tbody>
                                             <tr>
-                                                <td>{{ $may->id }}</td>
                                                 {{-- <td>{{ $may->ho_ten }}</td> --}}
                                                 <td>{{ $may->phongHoc->ten_phong }}</td>
                                                 <td>{{ $may->so_may }}</td>

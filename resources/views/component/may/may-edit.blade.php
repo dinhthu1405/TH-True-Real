@@ -42,7 +42,16 @@
             <div class="col-md-10">
                 <div class="card card-user">
                     <div class="card-header">
-                        <h5 class="card-title">Sửa Máy</h5>
+                        <div class="row">
+                            <div class="col-md-10">
+                                <h5 class="card-title">Sửa Máy</h5>
+                            </div>
+                            <div class="col-md-2">
+                                <a href="{{ route('may.index') }}" class="">
+                                    <button class="btn btn-success"> <i class="fas fa-reply"></i> Trở về</button>
+                                </a>
+                            </div>
+                        </div>
                     </div>
                     <div class="card-body">
                         <form action="{{ route('may.update', ['may' => $may]) }}" method="post"
@@ -53,21 +62,29 @@
                                 <div class="col-md-6 pr-1">
                                     <div class="form-group">
                                         <label>Tên Máy</label>
-                                        <input type="text" name="TenMay" class="form-control" placeholder="Tên Máy"
+                                        <input type="text" name="SoMay" class="form-control" placeholder="Tên Máy"
                                             value="{{ $may->so_may }}">
                                     </div>
                                 </div>
                                 <div class="col-md-6 pr-1">
                                     <div class="form-group">
                                         <label>Tên Phòng</label>
-                                        <select name="TenPhong" id="" class="form-control">
+                                        {{-- @foreach ($lstPhongHoc as $phongHoc) --}}
+                                        {{-- @if ($phongHoc->id == $may->phong_id) --}}
+                                        <input type="text" disabled name="Phongs" class="form-control" placeholder="Phòng"
+                                            value="{{ $may->phongHoc->ten_phong }}">
+                                        <input hidden type="text" readonly name="Phong" class="form-control"
+                                            placeholder="Phòng" value="{{ $may->phongHoc->id }}">
+                                        {{-- @endif --}}
+                                        {{-- @endforeach --}}
+                                        {{-- <select name="Phong" id="" class="form-control">
                                             <option value="">-- Chọn Phòng--</option>
                                             @foreach ($lstPhongHoc as $phongHoc)
                                                 <option value="{{ $phongHoc->id }}"
                                                     @if ($phongHoc->id == $may->phong_id) selected @endif>
                                                     {{ $phongHoc->ten_phong }}</option>
                                             @endforeach
-                                        </select>
+                                        </select> --}}
                                     </div>
                                 </div>
                                 <div class="col-md-3 pr-1">

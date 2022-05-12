@@ -38,7 +38,6 @@
                             <div class="row">
                                 <table class="table" style="text-align: center;">
                                     <thead class="text-primary">
-                                        <th>STT</th>
                                         
                                         <th>Phòng</th>
                                         <th>Số máy</th>
@@ -48,7 +47,6 @@
                                     <?php $__currentLoopData = $lstMay; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $may): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                         <tbody>
                                             <tr>
-                                                <td><?php echo e($may->id); ?></td>
                                                 
                                                 <td><?php echo e($may->phongHoc->ten_phong); ?></td>
                                                 <td><?php echo e($may->so_may); ?></td>

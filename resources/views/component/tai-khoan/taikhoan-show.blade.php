@@ -66,7 +66,8 @@
                                                     @else
                                                         <td>Người dùng</td>
                                                     @endif
-                                                    <td>{{ $taiKhoan->phongHocs->ten_phong }}</td>
+                                                    <td>{{ $taiKhoan->sdt }}</td>
+                                                    {{-- <td>{{ $taiKhoan->phongHocs->ten_phong }}</td> --}}
                                                     <td>
                                                         <a href="{{ route('taiKhoan.xoa', $taiKhoan->id) }}"
                                                             onclick="return confirm('Bạn có chắc muốn mở khoá tài khoản này')"><button
@@ -93,6 +94,7 @@
                                                     @else
                                                         <td>Người dùng</td>
                                                     @endif
+                                                    <td>{{ $taiKhoan->sdt }}</td>
                                                     {{-- <td>{{ $taiKhoan->phongHocs->ten_phong }}</td> --}}
                                                     {{-- @foreach ($taiKhoan->phongHocs as $phong)
                                                         <td>{{ $phong->created_at }}</td>

@@ -65,7 +65,8 @@
                                                     <?php else: ?>
                                                         <td>Người dùng</td>
                                                     <?php endif; ?>
-                                                    <td><?php echo e($taiKhoan->phongHocs->ten_phong); ?></td>
+                                                    <td><?php echo e($taiKhoan->sdt); ?></td>
+                                                    
                                                     <td>
                                                         <a href="<?php echo e(route('taiKhoan.xoa', $taiKhoan->id)); ?>"
                                                             onclick="return confirm('Bạn có chắc muốn mở khoá tài khoản này')"><button
@@ -92,6 +93,7 @@
                                                     <?php else: ?>
                                                         <td>Người dùng</td>
                                                     <?php endif; ?>
+                                                    <td><?php echo e($taiKhoan->sdt); ?></td>
                                                     
                                                     
                                                     <td>
