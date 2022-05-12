@@ -153,6 +153,24 @@ class LoiController extends Controller
     public function update(Request $request, Loi $loi)
     {
         //
+
+        $loi->fill([
+            'ten_loi' => $request->input('TenLoi'),
+            'thoi_gian' => $request->input('ThoiGian'),
+            'user_id' => $request->input('TaiKhoan'),
+            'may_id' => $request->input('May'),
+            'phong_id' => $request->input('Phong'),
+            'tinh_trang_loi' => $request->input('checkBox'),
+        ]);
+        // $ktLoi = Loi::where([['ten_loi', $request->input('TenLoi')], ['may_id', $request->input('May')], ['phong_id', $request->input('Phong')]])->first();
+        // return ($ktDiaDanh);
+
+        // if ($ktLoi) {
+        //     return Redirect::back()->with('error', 'Lỗi đã tồn tại');
+        // } else {
+            $loi->save(); //lưu xong mới có mã may
+        // }
+        return Redirect::route('loi.index')->with('success', 'Thêm lỗi thành công');
     }
 
     /**

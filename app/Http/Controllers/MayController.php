@@ -19,7 +19,7 @@ class MayController extends Controller
     public function index()
     {
         //
-        $lstMay = May::all()->where('trang_thai', 1);
+        $lstMay = May::all()->where('trang_thai', 1)->sortBy([['phong_id'],['so_may']]);
         return view('component/may/may-show', ['lstMay' => $lstMay]);
     }
 
@@ -28,11 +28,11 @@ class MayController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(May $may)
     {
         //
         $lstMay = May::all();
-        $lstPhongHoc = PhongHoc::all();
+        $lstPhongHoc = PhongHoc::all()->sortBy(['ten_phong','DESC']);
         return view('component/may/may-create', ['lstMay' => $lstMay, 'lstPhongHoc' => $lstPhongHoc]);
     }
 
@@ -81,7 +81,7 @@ class MayController extends Controller
     {
         //
         $lstMay = May::all();
-        $lstPhongHoc = PhongHoc::all();
+        $lstPhongHoc = PhongHoc::all()->sortBy(['ten_phong','DESC']);
         return view('component/may/may-edit', ['lstMay' => $lstMay, 'lstPhongHoc' => $lstPhongHoc, 'may' => $may]);
     }
 
@@ -95,7 +95,18 @@ class MayController extends Controller
     public function update(Request $request, May $may)
     {
         //
-
+        $may->fill([
+            'so_may' => $request->input('SoMay'),
+            'phong_id' => $request->input('Phong'),
+        ]);
+        $ktMay = May::where([['so_may', $request->input('SoMay')], ['phong_id', $request->input('Phong')]])->first();
+        // dd($ktMay);
+        if ($ktMay) {
+            return Redirect::back()->with('error', 'Máy đã tồn tại');
+        } else {
+            $may->save(); //lưu xong mới có mã may
+        }
+        return Redirect::route('may.index')->with('success', 'Sửa máy thành công');
     }
 
     /**

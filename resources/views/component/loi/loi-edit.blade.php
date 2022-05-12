@@ -41,8 +41,20 @@
         <div class="row" style="margin-left: 150px;">
             <div class="col-md-10">
                 <div class="card card-user">
-                    <div class="card-header">
+                    {{-- <div class="card-header">
                         <h5 class="card-title">Sửa Lỗi</h5>
+                    </div> --}}
+                    <div class="card-header">
+                        <div class="row">
+                            <div class="col-md-10">
+                                <h5 class="card-title">Sửa Lỗi</h5>
+                            </div>
+                            <div class="col-md-2">
+                                <a href="{{ route('loi.index') }}" class="">
+                                    <button class="btn btn-success"> <i class="fas fa-reply"></i> Trở về</button>
+                                </a>
+                            </div>
+                        </div>
                     </div>
                     <div class="card-body">
                         <!-- Lưu ý enctype của form để upload file -->
@@ -55,24 +67,58 @@
                                 <div class="col-md-6">
                                     <label>Tài Khoản</label>
                                     <div class="form-group">
-                                        <input disabled type="text" name="TaiKhoan" class="form-control"
-                                            placeholder="Tài Khoản" value="{{ Auth::user()->email }}">
+                                        <input disabled type="text" name="TaiKhoanView" class="form-control"
+                                            placeholder="Tài Khoản" value="{{ $loi->user->email }}">
+                                        <input hidden type="text" name="TaiKhoan" class="form-control"
+                                            placeholder="Tài Khoản" value="{{ $loi->user->id }}">
                                     </div>
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-md-2">
                                     <div class="form-group">
                                         <label>Tình Trạng</label> <br />
-                                        @if ($loi->tinh_trang_loi === 'Chưa sửa')
+                                        {{-- @if ($loi->tinh_trang_loi === 'Chưa sửa')
                                             <input type="checkbox" name="checkBox[]" value="Chưa sửa" checked="">
                                             Chưa
                                             sửa<br />
                                         @else
                                             <input type="checkbox" name="checkBox[]" value="Đã sửa"> Đã sửa <br />
-                                        @endif
+                                        @endif --}}
+
+                                        <div class="btn-group" data-toggle="buttons">
+                                            <label class="btn btn-success active">
+                                                <input onclick="disable()" type="checkbox" name="checkBox" value="Đã sửa"
+                                                    id="checkBox1" checked autocomplete="off">
+                                            </label>
+                                            <label class="btn btn-danger">
+                                                <input onclick="disable()" type="checkbox" name="checkBox" value="Chưa sửa"
+                                                    id="checkBox2" autocomplete="off">
+                                            </label>
+
+                                        </div>
+                                        {{-- <div class="btn-group" data-toggle="buttons">
+                                            <label class="btn btn-success active">
+                                                <input type="checkbox" name="checkBox" value="Đã sửa" id="" checked
+                                                    autocomplete="off">
+                                            </label>
+                                            <label class="btn btn-danger">
+                                                <input type="checkbox" name="checkBox" value="Chưa sửa" id=""
+                                                    autocomplete="off">
+                                            </label>
+
+                                        </div> --}}
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <label>Thời Gian</label>
+                                    <div class="form-group">
+                                        <input type="date" name="ThoiGianView" class="form-control" disabled
+                                            value="{{ $loi->thoi_gian }}">
+                                        <input type="date" hidden name="ThoiGian" class="form-control"
+                                            value="{{ $loi->thoi_gian }}">
                                     </div>
                                 </div>
                             </div>
-                            <div class="row">
+                            {{-- <div class="row">
                                 <div class="col-md-6">
                                     <label>Tên Lỗi</label>
                                     <div class="form-group">
@@ -80,45 +126,43 @@
                                             value="{{ $loi->ten_loi }}">
                                     </div>
                                 </div>
-                                <div class="col-md-6">
-                                    <label>Thời Gian</label>
-                                    <div class="form-group">
-                                        <input type="date" name="ThoiGian" class="form-control" placeholder="Thời Gian"
-                                            value="{{ $loi->thoi_gian }}">
-                                    </div>
-                                </div>
-                            </div>
+                            </div> --}}
                             <div class=" row">
                                 <div class="col-md-6">
                                     <label>Phòng</label>
-                                    <select name="Phong" id="" class="form-control">
-                                        <option value="">-- Chọn Phòng--</option>
-                                        @foreach ($lstPhongHoc as $phongHoc)
-                                            <option value="{{ $phongHoc->id }}"
-                                                @if ($phongHoc->id == $loi->phong_id) selected @endif>
-                                                {{ $phongHoc->ten_phong }}</option>
-                                        @endforeach
-                                    </select>
+                                    <input type="text" disabled name="Phongs" class="form-control"
+                                        value="{{ $loi->phongHoc->ten_phong }}">
+                                    <input hidden type="text" readonly name="Phong" class="form-control"
+                                        placeholder="Phòng" value="{{ $loi->phongHoc->id }}">
                                 </div>
                                 <div class="col-md-6">
                                     <label>Số Máy</label>
-                                    <select name="May" id="" class="form-control">
+                                    <input type="text" disabled name="TenMay" class="form-control"
+                                        value="{{ $loi->may->so_may }}">
+                                    <input hidden type="text" readonly name="May" class="form-control"
+                                        value="{{ $loi->may->id }}">
+
+                                    {{-- <select name="May" id="" class="form-control">
                                         <option value="">-- Chọn Máy--</option>
                                         @foreach ($lstMay as $may)
                                             <option value="{{ $may->id }}"
                                                 @if ($may->id == $loi->may_id) selected @endif>
                                                 {{ $may->so_may }}</option>
                                         @endforeach
-                                    </select>
+                                    </select> --}}
                                 </div>
-                                <div class="col-md-6 pr-1">
 
-                                </div>
                             </div>
                             <br>
                             <div class="row">
+                                <label>Tên lỗi</label>
+                                <div class="form-group">
+                                    <textarea class="form-control" name="TenLoi" id="" cols="165" rows="10">{{ $loi->ten_loi }}</textarea>
+                                </div>
+                            </div>
+                            <div class="row">
                                 <div class="update ml-auto mr-auto">
-                                    <button type="submit" class="btn btn-primary btn-round">Sửa tài khoản</button>
+                                    <button type="submit" class="btn btn-primary btn-round">Sửa lỗi</button>
                                 </div>
                             </div>
                     </div>
@@ -145,6 +189,29 @@
                 x.type = "password";
             }
         }
+
+        function disable() {
+            $a = document.getElementById("checkBox1").checked = true;
+            $b = document.getElementById("checkBox2").checked = true;
+            if ($a == true) {
+                $b = !$b;
+            } else if ($a == false) {
+                $b = $b;
+            } else if ($b == true) {
+                $a = !$a;
+            } else if ($b == false) {
+                $a = !$a;
+            }
+            // document.getElementById("checkBox1").checked = true;
+        }
+
+        // function undisable() {
+        //     $a = document.getElementById("checkBox1").checked = true;
+        //     $b = document.getElementById("checkBox2").checked;
+        //     if ($a == true) {
+        //         $b = false;
+        //     }
+        // }
     </script>
     {{-- <script>
 

@@ -56,7 +56,15 @@
                             <?php echo @csrf_field(); ?>
 
                             <div class="row">
-                                
+                                <!-- <div class="col-md-6 pr-1">
+                                                                                                                                                            <label>Tài khoản</label>
+                                                                                                                                                            <select name="User" id="" class="form-control">
+                                                                                                                                                                <option value="">-- Chọn Tài Khoản--</option>
+                                                                                                                                                                <?php $__currentLoopData = $lstUser; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $user): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+    <option value="<?php echo e($user->id); ?>"><?php echo e($user->email); ?></option>
+    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                                                                                                                                            </select>
+                                                                                                                                                        </div> -->
                                 <div class="col-md-6 pr-1">
                                     <div class="form-group">
                                         <label>Thời gian</label>
@@ -68,13 +76,14 @@
                             <div class="row">
                                 <div class="col-md-6 pr-1">
                                     <label>Phòng</label>
-                                    <select name="Phong" id="" class="form-control">
+                                    <select name="Phong" id="phong" class="form-control">
                                         <option value="">-- Chọn phòng--</option>
                                         <?php $__currentLoopData = $lstPhongHoc; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $phongHoc): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                             <option value="<?php echo e($phongHoc->id); ?>"><?php echo e($phongHoc->ten_phong); ?></option>
                                         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                     </select>
                                 </div>
+
                                 <div class="col-md-6 pr-1">
                                     <label>Máy</label>
                                     <select name="May" id="" class="form-control">
@@ -82,6 +91,7 @@
                                         <?php $__currentLoopData = $lstMay; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $may): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                             <option value="<?php echo e($may->id); ?>"><?php echo e($may->so_may); ?></option>
                                         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+
                                     </select>
                                 </div>
                             </div>
@@ -93,26 +103,6 @@
                                     </div>
                                 </div>
                             </div>
-                            <!-- <div class="row">
-                                                                                                                                                                                                                                                                                                                                                            <div class="col-md-6">
-                                                                                                                                                                                                                                                                                                                                                                <div class="form-group">
-                                                                                                                                                                                                                                                                                                                                                                    <div class="form-group">
-                                                                                                                                                                                                                                                                                                                                                                        <label for="">Hình ảnh</label>
-                                                                                                                                                                                                                                                                                                                                                                        <input type="file" name="images" accept="image/*" class="form-control" id="images" onchange="loadFile(event)" placeholder="Hình ảnh">
-                                                                                                                                                                                                                                                                                                                                                                    </div>
-                                                                                                                                                                                                                                                                                                                                                                </div>
-                                                                                                                                                                                                                                                                                                                                                            </div>
-                                                                                                                                                                                                                                                                                                                                                        </div> -->
-                            <!-- <div class="row">
-                                                                                                                                                                                                                                                                                                                                                            <div class="col-md pr-1">
-                                                                                                                                                                                                                                                                                                                                                                <div class="form-group">
-                                                                                                                                                                                                                                                                                                                                                                    <label for="">Hình</label>
-                                                                                                                                                                                                                                                                                                                                                                    <div class="user-image col-md-12 text-center">
-                                                                                                                                                                                                                                                                                                                                                                        <img id="preview-image" src="<?php echo e(asset('asset/img/khongxacdinh.jpg')); ?>" alt="preview image" style="max-height: 200px;">
-                                                                                                                                                                                                                                                                                                                                                                    </div>
-                                                                                                                                                                                                                                                                                                                                                                </div>
-                                                                                                                                                                                                                                                                                                                                                            </div>
-                                                                                                                                                                                                                                                                                                                                                        </div> -->
 
                             <div class="row">
                                 <div class="update ml-auto mr-auto">
@@ -131,6 +121,14 @@
             var previewImage = document.getElementById('preview-image');
             previewImage.src = URL.createObjectURL(event.target.files[0]);
         };
+        // var getDropdown = function(e) {
+        //     $('.variant').change(function() {
+        //         var size = $(".variant").get().map(function(el) {
+        //             return el.value
+        //         }).join(" / "); //get value of slected options and then join
+        //         $("select#data >  option:contains(" + size + ")").prop('selected', true); //set selected value
+        //     });
+        // }
     </script>
 <?php $__env->stopSection(); ?>
 
