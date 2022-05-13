@@ -71,7 +71,8 @@
                                                     <td>
                                                         <a href="{{ route('taiKhoan.xoa', $taiKhoan->id) }}"
                                                             onclick="return confirm('Bạn có chắc muốn mở khoá tài khoản này')"><button
-                                                                class="btn btn-danger" type="submit">Mở khoá</button></a>
+                                                                class="btn btn-danger" type="submit">Mở
+                                                                khoá</button></a>
                                                         <!-- </a> -->
                                                     </td>
                                                     <td><a href="{{ route('taiKhoan.edit', $taiKhoan->id) }}"><button
@@ -99,12 +100,17 @@
                                                     {{-- @foreach ($taiKhoan->phongHocs as $phong)
                                                         <td>{{ $phong->created_at }}</td>
                                                     @endforeach --}}
-                                                    <td>
-                                                        <a href="{{ route('taiKhoan.xoa', $taiKhoan->id) }}"
-                                                            onclick="return confirm('Bạn có chắc muốn khoá tài khoản này')"><button
-                                                                class="btn btn-danger" type="submit">Khoá</button></a>
-                                                        <!-- </a> -->
-                                                    </td>
+                                                    @if ($taiKhoan->phan_quyen == 0)
+                                                        <td>
+                                                            <a href="{{ route('taiKhoan.xoa', $taiKhoan->id) }}"
+                                                                onclick="return confirm('Bạn có chắc muốn khoá tài khoản này')"><button
+                                                                    class="btn btn-danger" type="submit">Khoá</button></a>
+                                                        </td>
+                                                    @else
+                                                        <td>
+
+                                                        </td>
+                                                    @endif
                                                     <td><a href="{{ route('taiKhoan.edit', $taiKhoan->id) }}"><button
                                                                 class="btn btn-warning">Sửa</button></a></td>
                                                 </tr>

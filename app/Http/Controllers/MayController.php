@@ -119,4 +119,11 @@ class MayController extends Controller
     {
         //
     }
+    public function xoa($id)
+    {
+        $may=May::find($id);
+            $may->trang_thai=0;
+            $may->save();
+        return Redirect::route('may.index');
+    }
 }

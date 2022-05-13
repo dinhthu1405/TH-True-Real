@@ -70,7 +70,8 @@
                                                     <td>
                                                         <a href="<?php echo e(route('taiKhoan.xoa', $taiKhoan->id)); ?>"
                                                             onclick="return confirm('Bạn có chắc muốn mở khoá tài khoản này')"><button
-                                                                class="btn btn-danger" type="submit">Mở khoá</button></a>
+                                                                class="btn btn-danger" type="submit">Mở
+                                                                khoá</button></a>
                                                         <!-- </a> -->
                                                     </td>
                                                     <td><a href="<?php echo e(route('taiKhoan.edit', $taiKhoan->id)); ?>"><button
@@ -96,12 +97,17 @@
                                                     <td><?php echo e($taiKhoan->sdt); ?></td>
                                                     
                                                     
-                                                    <td>
-                                                        <a href="<?php echo e(route('taiKhoan.xoa', $taiKhoan->id)); ?>"
-                                                            onclick="return confirm('Bạn có chắc muốn khoá tài khoản này')"><button
-                                                                class="btn btn-danger" type="submit">Khoá</button></a>
-                                                        <!-- </a> -->
-                                                    </td>
+                                                    <?php if($taiKhoan->phan_quyen == 0): ?>
+                                                        <td>
+                                                            <a href="<?php echo e(route('taiKhoan.xoa', $taiKhoan->id)); ?>"
+                                                                onclick="return confirm('Bạn có chắc muốn khoá tài khoản này')"><button
+                                                                    class="btn btn-danger" type="submit">Khoá</button></a>
+                                                        </td>
+                                                    <?php else: ?>
+                                                        <td>
+
+                                                        </td>
+                                                    <?php endif; ?>
                                                     <td><a href="<?php echo e(route('taiKhoan.edit', $taiKhoan->id)); ?>"><button
                                                                 class="btn btn-warning">Sửa</button></a></td>
                                                 </tr>

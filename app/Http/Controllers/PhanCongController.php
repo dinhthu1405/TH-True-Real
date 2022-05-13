@@ -61,6 +61,12 @@ class PhanCongController extends Controller
         //  'giang_vien_id'=> $request->input('TenGiangVien'),
 
         ]);
+        if($request->input('NgayBatDau') > $request->input('NgayKetThuc')){
+            return Redirect::back()->with('error', 'Ngày kết thúc phải lớn hơn ngày bắt đầu');
+        }
+        // else{
+        //     return Redirect::back()->with('error', 'Ngày bắt đầu phải nhỏ hơn ngày kết thúc');
+        // }
         // $ktCa = PhanCong::where('ten_ca', $request->input('TenCa'))->first();
 
 

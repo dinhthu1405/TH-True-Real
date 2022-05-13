@@ -15,7 +15,7 @@ class CreateLoisTable extends Migration
     {
         Schema::create('lois', function (Blueprint $table) {
             $table->id();
-            $table->string('ten_loi');
+            $table->text('ten_loi');
             $table->date('thoi_gian');
             $table->unsignedBigInteger('may_id');
             $table->unsignedBigInteger('user_id');

@@ -3,9 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\ViPham;
+use App\Models\User;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 use App\Http\Requests\StoreViPhamRequest;
 use App\Http\Requests\UpdateViPhamRequest;
+use Illuminate\Support\Facades\Redirect;
 
 class ViPhamController extends Controller
 {
@@ -18,6 +21,9 @@ class ViPhamController extends Controller
     {
         //
         $lstViPham=ViPham::all();
+        $lstUser=User::all();
+        return view('component/vi-pham/vipham-show', ['lstViPham' => $lstViPham,'lstUser',$lstUser]);
+
     }
 
     /**
@@ -28,6 +34,9 @@ class ViPhamController extends Controller
     public function create()
     {
         //
+        $lstUser=User::all();
+        return view('component/vi-pham/vipham-create',['lstUser'=>$lstUser]);
+
     }
 
     /**
@@ -36,9 +45,25 @@ class ViPhamController extends Controller
      * @param  \App\Http\Requests\StoreViPhamRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreViPhamRequest $request)
+    public function store(Request $request)
     {
         //
+        $viPham= new ViPham();
+        $viPham->fill([
+            'loi_vi_pham'=>$request->input('LoiViPham'),
+            'user_id'=>$request->input('TenNguoiViPham'),
+            'thoi_gian'=>$request->input('ThoiGian'),
+        ]);
+        $ktViPham=ViPham::where('loi_vi_pham',$request->input('LoiViPham'))->first();
+        // return ($ktDiaDanh);
+        if($ktViPham){
+            return Redirect::back()->with('error','Tên lớp đã tồn tại');
+        }
+        else{
+            $viPham->save();//lưu xong mới có mã phòng
+        }
+        return Redirect::route('viPham.index')->with('success','Thêm tên lớp thành công');
+
     }
 
     /**
@@ -61,6 +86,9 @@ class ViPhamController extends Controller
     public function edit(ViPham $viPham)
     {
         //
+        $lstUser=User::all();
+        return view('component/vi-pham/vipham-edit',['lstUser'=>$lstUser]);
+
     }
 
     /**
@@ -70,7 +98,7 @@ class ViPhamController extends Controller
      * @param  \App\Models\ViPham  $viPham
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateViPhamRequest $request, ViPham $viPham)
+    public function update(Request $request, ViPham $viPham)
     {
         //
     }
@@ -84,5 +112,12 @@ class ViPhamController extends Controller
     public function destroy(ViPham $viPham)
     {
         //
+    }
+    public function xoa($id)
+    {
+        $viPham=ViPham::find($id);
+            $viPham->trang_thai=0;
+            $viPham->save();
+        return Redirect::route('viPham.index');
     }
 }

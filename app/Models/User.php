@@ -79,4 +79,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(PhanCong::class);
     }
+
+    public function viPhams()
+    {
+        return $this->hasMany(ViPham::class);
+    }
 }
