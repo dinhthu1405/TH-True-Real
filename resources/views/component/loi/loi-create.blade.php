@@ -57,15 +57,15 @@
                         <form action="{{ route('loi.store') }}" method="post" enctype="multipart/form-data">
                             {!! @csrf_field() !!}
                             <div class="row">
-                                <!-- <div class="col-md-6 pr-1">
-                                                                                                                                                                    <label>Tài khoản</label>
-                                                                                                                                                                    <select name="User" id="" class="form-control">
-                                                                                                                                                                        <option value="">-- Chọn Tài Khoản--</option>
-                                                                                                                                                                        @foreach ($lstUser as $user)
-    <option value="{{ $user->id }}">{{ $user->email }}</option>
-    @endforeach
-                                                                                                                                                                    </select>
-                                                                                                                                                                </div> -->
+                                {{-- <div class="col-md-6 pr-1">
+                                    <label>Tài khoản</label>
+                                    <select name="User" id="" class="form-control">
+                                        <option value="">-- Chọn Tài Khoản--</option>
+                                        @foreach ($lstUser as $user)
+                                            <option value="{{ $user->id }}">{{ $user->email }}</option>
+                                        @endforeach
+                                    </select>
+                                </div> --}}
                                 <div class="col-md-6 pr-1">
                                     <div class="form-group">
                                         <label>Thời gian</label>
@@ -100,7 +100,7 @@
                                 <div class="col-md-12 pr-1"><br>
                                     <label>Tên lỗi</label>
                                     <div class="form-group">
-                                        <textarea class="form-control" name="TenLoi" id="" cols="165" rows="10"></textarea>
+                                        <textarea class="form-control" name="TenLoi" id="" cols="165" rows="5"></textarea>
                                     </div>
                                 </div>
                             </div>

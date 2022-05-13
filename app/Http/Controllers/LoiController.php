@@ -160,7 +160,7 @@ class LoiController extends Controller
             'user_id' => $request->input('TaiKhoan'),
             'may_id' => $request->input('May'),
             'phong_id' => $request->input('Phong'),
-            'tinh_trang_loi' => $request->input('checkBox'),
+            'tinh_trang_loi' => $request->input('radiobtn'),
         ]);
         // $ktLoi = Loi::where([['ten_loi', $request->input('TenLoi')], ['may_id', $request->input('May')], ['phong_id', $request->input('Phong')]])->first();
         // return ($ktDiaDanh);
@@ -182,5 +182,12 @@ class LoiController extends Controller
     public function destroy(Loi $loi)
     {
         //
+    }
+    public function xoa($id)
+    {
+        $loi=Loi::find($id);
+            $loi->trang_thai=0;
+            $loi->save();
+        return Redirect::route('loi.index');
     }
 }
