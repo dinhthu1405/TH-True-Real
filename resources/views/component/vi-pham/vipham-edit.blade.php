@@ -59,16 +59,14 @@
                             @csrf
                             @method('PUT')
                             <div class="row">
-                                <div class="col-md-6 pr-1">
+                                <div class="col-md-12 pr-1">
                                     <div class="form-group">
                                         <label>Lỗi Vi Phạm</label>
                                         <input type="text" name="LoiViPham" class="form-control" placeholder="Lỗi Vi Phạm"
                                             value="{{ $viPham->loi_vi_pham }}">
                                     </div>
                                 </div>
-                                <div class="col-md-6 pr-1">
 
-                                </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-6 pr-1">

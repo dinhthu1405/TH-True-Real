@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Loi;
+use Carbon\Carbon;
 use App\Models\May;
 use App\Models\PhongHoc;
 use App\Models\User;
@@ -58,15 +59,18 @@ class LoiController extends Controller
             'phong_id' => $request->input('Phong'),
             'tinh_trang_loi' => 'Chưa sửa',
         ]);
-        $ktLoi = Loi::where([['ten_loi', $request->input('TenLoi')], ['phong_id', $request->input('Phong')], ['may_id', $request->input('May')]])->first();
-        // return ($ktDiaDanh);
+        $ktLoi = Loi::where([['ten_loi', $request->input('TenLoi')], ['may_id', $request->input('May')],['phong_id', $request->input('Phong')],['thoi_gian', $request->input('ThoiGian')]])->first();
+        if($request->input('ThoiGian') > Carbon::now()) {
+            return Redirect::back()->with('error', 'Nhập thời gian không hợp lệ');
+        }
+        else if($ktLoi){
 
-        if ($ktLoi) {
             return Redirect::back()->with('error', 'Lỗi đã tồn tại');
-        } else {
+        }
+        else{
             $loi->save(); //lưu xong mới có mã may
         }
-        return Redirect::route('loi.index')->with('success', 'Thêm lỗi thành công');
+        return Redirect::route('loi.xemLoi')->with('success', 'Thêm lỗi thành công');
     }
 
     // public function viPhamTaiKhoan()
@@ -117,12 +121,17 @@ class LoiController extends Controller
             'phong_id' => $request->input('Phong'),
             'tinh_trang_loi' => implode(',', $request->input('checkBox')),
         ]);
-        $ktLoi = Loi::where(['ten_loi', $request->input('TenLoi')], ['may_id', $request->input('May')], [['phong_id', $request->input('Phong')]])->first();
+        $ktLoi = Loi::where([['ten_loi', $request->input('TenLoi')], ['may_id', $request->input('May')],['phong_id', $request->input('Phong')],['thoi_gian', $request->input('ThoiGian')]])->first();
         // return ($ktDiaDanh);
+// dd($request->input('ThoiGian') > Carbon::now());
+        if($request->input('ThoiGian') > Carbon::now()) {
+            return Redirect::back()->with('error', 'Nhập thời gian không hợp lệ');
+        }
+        else if($ktLoi){
 
-        if ($ktLoi) {
             return Redirect::back()->with('error', 'Lỗi đã tồn tại');
-        } else {
+        }
+        else{
             $loi->save(); //lưu xong mới có mã may
         }
         return Redirect::route('loi.xemLoi')->with('success', 'Thêm lỗi thành công');

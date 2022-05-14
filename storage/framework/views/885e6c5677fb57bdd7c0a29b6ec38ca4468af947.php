@@ -171,10 +171,11 @@
 
                                                 <td><?php echo e(Str::limit($loi->ten_loi, 10)); ?>
 
+
                                                     
                                                     <a href="#"
                                                         onclick="document.getElementById('id<?php echo e($loi->id); ?>').style.display='block'"
-                                                        style="width:auto;color: black">Xem thêm</a>
+                                                        style="width:auto;color: black">...Xem thêm</a>
                                                     <div id="id<?php echo e($loi->id); ?>" class="modal">
                                                         <form class="modal-content animate">
                                                             <span

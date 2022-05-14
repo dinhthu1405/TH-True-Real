@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\ViPham;
+use Carbon\Carbon;
 use App\Models\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -20,7 +21,7 @@ class ViPhamController extends Controller
     public function index()
     {
         //
-        $lstViPham=ViPham::all();
+        $lstViPham=ViPham::all()->where('trang_thai',1)->sortBy('thoi_gian');
         $lstUser=User::all();
         return view('component/vi-pham/vipham-show', ['lstViPham' => $lstViPham,'lstUser',$lstUser]);
 
@@ -34,9 +35,8 @@ class ViPhamController extends Controller
     public function create()
     {
         //
-        $lstUser=User::all();
+        $lstUser=User::all()->where('trang_thai',1);
         return view('component/vi-pham/vipham-create',['lstUser'=>$lstUser]);
-
     }
 
     /**
@@ -54,15 +54,18 @@ class ViPhamController extends Controller
             'user_id'=>$request->input('TenNguoiViPham'),
             'thoi_gian'=>$request->input('ThoiGian'),
         ]);
-        $ktViPham=ViPham::where('loi_vi_pham',$request->input('LoiViPham'))->first();
+        $ktViPham=ViPham::where([['thoi_gian',$request->input('ThoiGian')],['loi_vi_pham',$request->input('LoiViPham')],['user_id',$request->input('TenNguoiViPham')]])->first();
         // return ($ktDiaDanh);
         if($ktViPham){
-            return Redirect::back()->with('error','Tên lớp đã tồn tại');
+            return Redirect::back()->with('error','Vi phạm đã tồn tại');
+        }
+        else if($request->input('ThoiGian') > Carbon::now()){
+            return Redirect::back()->with('error','Nhập thời gian không hợp lệ');
         }
         else{
-            $viPham->save();//lưu xong mới có mã phòng
+            $viPham->save();
         }
-        return Redirect::route('viPham.index')->with('success','Thêm tên lớp thành công');
+        return Redirect::route('viPham.index')->with('success','Thêm vi phạm thành công');
 
     }
 
@@ -87,8 +90,7 @@ class ViPhamController extends Controller
     {
         //
         $lstUser=User::all();
-        return view('component/vi-pham/vipham-edit',['lstUser'=>$lstUser]);
-
+        return view('component/vi-pham/vipham-edit',['viPham'=>$viPham,'lstUser'=>$lstUser]);
     }
 
     /**
@@ -101,6 +103,7 @@ class ViPhamController extends Controller
     public function update(Request $request, ViPham $viPham)
     {
         //
+        
     }
 
     /**
