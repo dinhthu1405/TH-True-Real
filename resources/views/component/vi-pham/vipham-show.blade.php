@@ -41,8 +41,8 @@
                                 <table class="table" style="text-align: center;">
                                     <thead class="text-primary">
                                         {{-- <th>Tên tài khoản</th> --}}
-                                        <th>Tên Người Vi Phạm</th>
                                         <th>Lỗi Vi Phạm</th>
+                                        <th>Tên Người Vi Phạm</th>
                                         <th>Thời Gian</th>
                                         <th>Xóa</th>
                                         <th>Sửa</th>
@@ -55,7 +55,7 @@
                                                 <td>{{ $viPham->thoi_gian }}</td>
                                                 <td>
                                                     <a href="{{ route('viPham.xoa', $viPham->id) }}"
-                                                        onclick="return confirm('Bạn có chắc muốn xoá máy này')"><button
+                                                        onclick="return confirm('Bạn có chắc muốn xoá vi phạm cho người dùng này')"><button
                                                             class="btn btn-danger" type="submit">Xóa</button></a>
                                                     <!-- </a> -->
                                                 </td>
@@ -74,7 +74,7 @@
     @else
         <div class="row">
             <div class="col-md-10">
-                <h2 style="padding-left: 2%">Không tìm thấy máy nào</h2>
+                <h2 style="padding-left: 2%">Không tìm thấy người vi phạm nào</h2>
             </div>
             <div class="col-md-2">
                 <a href="{{ route('viPham.create') }}" class="">

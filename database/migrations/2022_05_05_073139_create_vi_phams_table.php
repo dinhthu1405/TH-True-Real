@@ -18,6 +18,7 @@ class CreateViPhamsTable extends Migration
             $table->text('loi_vi_pham');
             $table->unsignedBigInteger('user_id');
             $table->date('thoi_gian');
+            $table->boolean('trang_thai')->nullable()->default(1);
             $table->timestamps();
             $table->softDeletes();
         });
