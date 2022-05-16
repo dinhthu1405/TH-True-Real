@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\May;
 use App\Models\PhongHoc;
 use App\Models\User;
+
 use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\Redirect;
@@ -22,7 +23,23 @@ class MayController extends Controller
         $lstMay = May::all()->where('trang_thai', 1)->sortBy([['phong_id'],['so_may']]);
         return view('component/may/may-show', ['lstMay' => $lstMay]);
     }
+    public function search(Request $request){
+        // Get the search value from the request
+        $search = $request->input('search');
+        // $search=May::search($request->input('search'))->get();
+        // Search in the title and body columns from the posts table
+        $lstPhong=PhongHoc::where('ten_phong','LIKE','%'.$search.'%')->get();
+        // $getPhong=May::whereHas('ten_phong', function($q) use($name) {
+        //     $q->where('phong_id', 'like', '%' . $name . '%');
+        // })->get();
 
+        $lstMay = May::where('so_may','LIKE','%'.$search.'%')->get();
+
+
+    // return $lstDiaDanh;
+    return view('component/may/may-show', compact('lstMay'));
+        // Return the search view with the resluts compacted
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -45,6 +62,18 @@ class MayController extends Controller
     public function store(Request $request)
     {
         //
+        $this->validate(
+            $request,
+            [
+                'SoMay' => 'required',
+                'Phong' => 'required',
+            ],
+            [
+                'SoMay.required' => 'Chưa nhập số máy',
+                'Phong.required' => 'Chưa chọn phòng',
+
+            ]
+        );
         $may = new May();
         $may->fill([
             'so_may' => $request->input('SoMay'),
@@ -95,6 +124,16 @@ class MayController extends Controller
     public function update(Request $request, May $may)
     {
         //
+        $this->validate(
+            $request,
+            [
+                'SoMay' => 'required',
+            ],
+            [
+                'SoMay.required' => 'Chưa nhập số máy',
+
+            ]
+        );
         $may->fill([
             'so_may' => $request->input('SoMay'),
             'phong_id' => $request->input('Phong'),

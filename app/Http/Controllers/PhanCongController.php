@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\PhongHoc;
 use App\Models\GiangVien;
 use App\Models\LopHoc;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Http\Request;
 
@@ -50,6 +51,25 @@ class PhanCongController extends Controller
     public function store(Request $request)
     {
         //
+        $this->validate(
+            $request,
+            [
+                'NgayBatDau' => 'required',
+                'NgayKetThuc' => 'required',
+                'TenNguoiTruc' => 'required',
+                'checkBox' => 'required',
+                'TenPhong' => 'required',
+            ],
+            [
+                'NgayBatDau.required' => 'Chưa chọn thời gian bắt đầu',
+                'NgayKetThuc.required' => 'Chưa chọn thời gian kết thúc',
+                'TenNguoiTruc.required' => 'Chưa chọn người trực',
+                'checkBox.required' => 'Chưa chọn ca',
+                'TenPhong.required' => 'Chưa chọn phòng trực',
+            ]
+        );
+
+
         $phanCong = new PhanCong();
         $phanCong->fill([
         'ngay_bat_dau'=> $request->input('NgayBatDau'),
@@ -61,22 +81,17 @@ class PhanCongController extends Controller
         //  'giang_vien_id'=> $request->input('TenGiangVien'),
 
         ]);
+        // dd($request->input('NgayBatDau') >= Carbon::now());
+        // if($request->input('NgayBatDau') < Carbon::now()) {
+        //     return Redirect::back()->with('error', 'Nhập ngày bắt đầu không hợp lệ');
+        // } else
         if($request->input('NgayBatDau') > $request->input('NgayKetThuc')){
             return Redirect::back()->with('error', 'Ngày kết thúc phải lớn hơn ngày bắt đầu');
         }
-        // else{
-        //     return Redirect::back()->with('error', 'Ngày bắt đầu phải nhỏ hơn ngày kết thúc');
-        // }
-        // $ktCa = PhanCong::where('ten_ca', $request->input('TenCa'))->first();
-
-
-        // if ($ktCa) {
-        //     return Redirect::back()->with('error', 'Ca đã tồn tại');
-        // } else {
-        //     $caHoc->save(); //lưu xong mới có mã may
-        // }
-        $phanCong->save();
-        return Redirect::route('phanCong.index')->with('success', 'Thêm ca thành công');
+else{
+    $phanCong->save();
+    return Redirect::route('phanCong.index')->with('success', 'Thêm ca thành công');
+}
 
     }
 

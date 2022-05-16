@@ -5,11 +5,20 @@
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => 'afc9378bd664c17f6e542182679162e75000df02',
+        'reference' => 'c12e4374b8ce79c165d94fd39c2951596f5775cf',
         'name' => 'laravel/laravel',
         'dev' => true,
     ),
     'versions' => array(
+        'algolia/algoliasearch-client-php' => array(
+            'pretty_version' => '3.2.0',
+            'version' => '3.2.0.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../algolia/algoliasearch-client-php',
+            'aliases' => array(),
+            'reference' => '8d78421f831b31868506e429828935c4dd1a0f23',
+            'dev_requirement' => false,
+        ),
         'asm89/stack-cors' => array(
             'pretty_version' => 'v2.1.1',
             'version' => '2.1.1.0',
@@ -400,7 +409,7 @@
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => 'afc9378bd664c17f6e542182679162e75000df02',
+            'reference' => 'c12e4374b8ce79c165d94fd39c2951596f5775cf',
             'dev_requirement' => false,
         ),
         'laravel/sail' => array(
@@ -419,6 +428,15 @@
             'install_path' => __DIR__ . '/../laravel/sanctum',
             'aliases' => array(),
             'reference' => '31fbe6f85aee080c4dc2f9b03dc6dd5d0ee72473',
+            'dev_requirement' => false,
+        ),
+        'laravel/scout' => array(
+            'pretty_version' => 'v9.4.9',
+            'version' => '9.4.9.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../laravel/scout',
+            'aliases' => array(),
+            'reference' => '61ce79ce87fbebb28dcc0dd8f95776aa0dec00c8',
             'dev_requirement' => false,
         ),
         'laravel/serializable-closure' => array(

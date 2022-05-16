@@ -72,7 +72,7 @@
                                 <div class="col-md-6 pr-1">
                                     <div class="form-group">
                                         <label>Tên Người Vi Phạm</label>
-                                        <select name="TenNguoiTruc" id="" class="form-control">
+                                        <select name="TenNguoiViPham" id="" class="form-control">
                                             <option value="">-- Chọn Người Vi Phạm--</option>
                                             @foreach ($lstUser as $user)
                                                 <option value="{{ $user->id }}"
@@ -92,7 +92,7 @@
                             </div>
                             <div class="row"><br>
                                 <div class="update ml-auto mr-auto">
-                                    <button type="submit" class="btn btn-primary btn-round">Sửa V Phạm</button>
+                                    <button type="submit" class="btn btn-primary btn-round">Sửa Vi Phạm</button>
                                 </div>
                             </div>
                         </form>

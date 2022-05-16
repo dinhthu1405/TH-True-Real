@@ -48,6 +48,21 @@ class ViPhamController extends Controller
     public function store(Request $request)
     {
         //
+        $this->validate(
+            $request,
+            [
+
+                'LoiViPham' => 'required',
+                'TenNguoiViPham'=> 'required',
+                'ThoiGian'=> 'required',
+            ],
+            [
+                'TenGiangVien.required' => 'Chưa nhập tên giảng viên',
+                'LoiViPham.required' => 'Chưa nhập lỗi vi phạm',
+                'TenNguoiViPham.required'=> 'Chưa nhập tên người vi phạm',
+                'ThoiGian.required'=> 'Chưa chọn thời gian',
+            ]
+        );
         $viPham= new ViPham();
         $viPham->fill([
             'loi_vi_pham'=>$request->input('LoiViPham'),
@@ -103,7 +118,29 @@ class ViPhamController extends Controller
     public function update(Request $request, ViPham $viPham)
     {
         //
-        
+        $this->validate(
+            $request,
+            [
+                'LoiViPham' => 'required',
+            ],
+            [
+                'LoiViPham.required' => 'Chưa nhập lỗi vi phạm',
+            ]
+        );
+        $viPham->fill([
+            'loi_vi_pham'=>$request->input('LoiViPham'),
+            'user_id'=>$request->input('TenNguoiViPham'),
+            'thoi_gian'=>$request->input('ThoiGian'),
+        ]);
+
+        if($request->input('ThoiGian') > Carbon::now()){
+            return Redirect::back()->with('error','Nhập thời gian không hợp lệ');
+        }
+        else{
+            $viPham->save();
+        }
+        return Redirect::route('viPham.index')->with('success','Thêm vi phạm thành công');
+
     }
 
     /**

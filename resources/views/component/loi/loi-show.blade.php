@@ -171,13 +171,10 @@
                                             <tr>
 
                                                 <td>{{ Str::limit($loi->ten_loi, 10) }}
-
-                                                    {{-- <a href="#"
-                                                        onclick="document.getElementById('id'{{ $loi->id }}).style.display='block'"
-                                                        style="width:auto;color: black">Xem thêm</a> --}}
+                                                    ...
                                                     <a href="#"
                                                         onclick="document.getElementById('id{{ $loi->id }}').style.display='block'"
-                                                        style="width:auto;color: black">...Xem thêm</a>
+                                                        style="width:auto;">Xem thêm</a>
                                                     <div id="id{{ $loi->id }}" class="modal">
                                                         <form class="modal-content animate">
                                                             <span

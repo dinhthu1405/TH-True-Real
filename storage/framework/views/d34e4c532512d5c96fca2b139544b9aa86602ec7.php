@@ -45,7 +45,7 @@
                                         <th>Số điện thoại</th>
                                         <th>Ngày Sinh</th>
                                         <th>Loại Tài Khoản</th>
-                                        <th>Phòng</th>
+
                                         <th>Khóa</th>
                                         <th>Sửa</th>
                                     </thead>
@@ -65,7 +65,7 @@
                                                     <?php else: ?>
                                                         <td>Người dùng</td>
                                                     <?php endif; ?>
-                                                    <td><?php echo e($taiKhoan->sdt); ?></td>
+
                                                     
                                                     <td>
                                                         <a href="<?php echo e(route('taiKhoan.xoa', $taiKhoan->id)); ?>"
@@ -94,7 +94,7 @@
                                                     <?php else: ?>
                                                         <td>Người dùng</td>
                                                     <?php endif; ?>
-                                                    <td><?php echo e($taiKhoan->sdt); ?></td>
+
                                                     
                                                     
                                                     <?php if($taiKhoan->phan_quyen == 0): ?>
