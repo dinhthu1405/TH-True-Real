@@ -6,11 +6,11 @@
 
     @if ($lstGiangVien->isNotEmpty())
         <section class="content" style="padding-left: 2%; padding-bottom: 2%">
-            <form action="#" method="post">
+            <form action="{{ route('giangVien.search') }}" method="post">
                 {{ csrf_field() }}
                 <div class="row">
                     <div class="col-md-4">
-                        <input class="form-control" type="search" name="search" required />
+                        <input class="form-control" type="search" name="search" value="" required />
                     </div>
                     <div class="col-md-2">
                         <button type="submit" class="form-control btn btn-primary"><i class="fas fa-search fa-fw"></i> Tìm
@@ -66,7 +66,7 @@
             </div>
         </section>
     @else
-        < <div class="row">
+        <div class="row">
             <div class="col-md-10">
                 <h2 style="padding-left: 2%">Không tìm thấy giảng viên này</h2>
             </div>
@@ -75,6 +75,6 @@
                     <button class="btn btn-success"> <i class="fas fa-plus"></i> Thêm Giảng Viên</button>
                 </a>
             </div>
-            </div>
+        </div>
     @endif
 @endsection

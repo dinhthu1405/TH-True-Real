@@ -4,7 +4,7 @@
 
     <?php if($lstMay->isNotEmpty()): ?>
         <section class="content" style="padding-left: 2%; padding-bottom: 2%">
-            <form action="#" method="post">
+            <form action="<?php echo e(route('may.search')); ?>" method="post">
                 <?php echo e(csrf_field()); ?>
 
                 <div class="row">

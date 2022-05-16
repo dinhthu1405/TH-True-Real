@@ -62,6 +62,10 @@ Route::get('/taiKhoan/maneger/{id}', [UserController::class, 'maneger'])->name('
 Route::get('/loi/themLoi', [LoiController::class, 'themLoi'])->name('loi.themLoi')->middleware('auth');
 Route::post('/loi/themLoi/{id}', [LoiController::class, 'themLois'])->name('loi.themLois')->middleware('auth');
 
+//Search
+Route::post('/giangVien/search/', [GiangVienController::class, 'search'])->name('giangVien.search')->middleware('auth');
+Route::post('/may/search/', [MayController::class, 'search'])->name('may.search')->middleware('auth');
+
 // //Vi phạm tài khoản
 // Route::get('/loi',[LoiController::class,'viPhamTaiKhoan'])->name('viPham');
 // Route::post('/loi',[LoiController::class,'viPhamTaiKhoans'])->name('viPhams');

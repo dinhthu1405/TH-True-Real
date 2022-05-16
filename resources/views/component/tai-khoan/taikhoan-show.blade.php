@@ -46,7 +46,7 @@
                                         <th>Số điện thoại</th>
                                         <th>Ngày Sinh</th>
                                         <th>Loại Tài Khoản</th>
-                                        <th>Phòng</th>
+
                                         <th>Khóa</th>
                                         <th>Sửa</th>
                                     </thead>
@@ -66,7 +66,7 @@
                                                     @else
                                                         <td>Người dùng</td>
                                                     @endif
-                                                    <td>{{ $taiKhoan->sdt }}</td>
+
                                                     {{-- <td>{{ $taiKhoan->phongHocs->ten_phong }}</td> --}}
                                                     <td>
                                                         <a href="{{ route('taiKhoan.xoa', $taiKhoan->id) }}"
@@ -95,7 +95,7 @@
                                                     @else
                                                         <td>Người dùng</td>
                                                     @endif
-                                                    <td>{{ $taiKhoan->sdt }}</td>
+
                                                     {{-- <td>{{ $taiKhoan->phongHocs->ten_phong }}</td> --}}
                                                     {{-- @foreach ($taiKhoan->phongHocs as $phong)
                                                         <td>{{ $phong->created_at }}</td>

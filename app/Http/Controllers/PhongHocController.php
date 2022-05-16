@@ -41,6 +41,16 @@ class PhongHocController extends Controller
     public function store(Request $request)
     {
         //
+        $this->validate(
+            $request,
+            [
+                'TenPhong' => 'required',
+            ],
+            [
+                'TenPhong.required' => 'Chưa nhập tên phòng',
+
+            ]
+        );
         $phongHoc= new PhongHoc();
         $phongHoc->fill([
             'ten_phong'=>$request->input('TenPhong'),
@@ -88,7 +98,16 @@ class PhongHocController extends Controller
      */
     public function update(Request $request, PhongHoc $phongHoc)
     {
-        //
+        $this->validate(
+            $request,
+            [
+                'TenPhong' => 'required',
+            ],
+            [
+                'TenPhong.required' => 'Chưa nhập tên phòng',
+
+            ]
+        );
         $phongHoc->fill([
             'ten_phong'=>$request->input('TenPhong'),
         ]);

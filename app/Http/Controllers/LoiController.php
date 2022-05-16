@@ -49,6 +49,24 @@ class LoiController extends Controller
     public function store(Request $request)
     {
         //
+        $this->validate(
+            $request,
+            [
+                'TenLoi' => 'required|max:255',
+                'ThoiGian' => 'required',
+                'May' => 'required',
+                'Phong' => 'required',
+            ],
+            [
+                // 'MSSV.MSSV' => 'MSSV không đúng định dạng',
+                'TenLoi.required' => 'Chưa nhập tên lỗi',
+                'TenLoi.max' => 'Tên lỗi không quá 255 kí tự',
+                'ThoiGian.required' => 'Chưa chọn thời gian',
+
+                'May.required' => 'Chưa chọn máy',
+                'Phong.required' => 'Chưa chọn phòng',
+            ]
+        );
         $loi = new Loi();
         $email = Auth::user()->id;
         $loi->fill([
@@ -70,7 +88,7 @@ class LoiController extends Controller
         else{
             $loi->save(); //lưu xong mới có mã may
         }
-        return Redirect::route('loi.xemLoi')->with('success', 'Thêm lỗi thành công');
+        return Redirect::route('loi.index')->with('success', 'Thêm lỗi thành công');
     }
 
     // public function viPhamTaiKhoan()
@@ -162,7 +180,17 @@ class LoiController extends Controller
     public function update(Request $request, Loi $loi)
     {
         //
+        $this->validate(
+            $request,
+            [
+                'TenLoi' => 'required|max:255',
+            ],
+            [
+                'TenLoi.required' => 'Chưa nhập tên lỗi',
+                'TenLoi.max' => 'Tên lỗi không quá 255 kí tự',
 
+            ]
+        );
         $loi->fill([
             'ten_loi' => $request->input('TenLoi'),
             'thoi_gian' => $request->input('ThoiGian'),

@@ -20,6 +20,17 @@ class GiangVienController extends Controller
         return view('component/giang-vien/giangvien-show', ['lstGiangVien'=>$lstGiangVien]);
     }
 
+    public function search(Request $request){
+        // Get the search value from the request
+        $search = $request->input('search');
+        // Search in the title and body columns from the posts table
+        $lstGiangVien = GiangVien::where('ten_giang_vien','LIKE','%'.$search.'%')->get();
+    // return $lstDiaDanh;
+    return view('component/giang-vien/giangvien-show', ['lstGiangVien'=>$lstGiangVien]);
+        // Return the search view with the resluts compacted
+        // return view('component/dia-danh/diadanh-search', compact('lstDiaDanh'));
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -41,6 +52,16 @@ class GiangVienController extends Controller
     public function store(Request $request)
     {
         //
+        $this->validate(
+            $request,
+            [
+                'TenGiangVien' => 'required',
+            ],
+            [
+                'TenGiangVien.required' => 'Chưa nhập tên giảng viên',
+
+            ]
+        );
         $giangVien= new GiangVien();
         $giangVien->fill([
             'ten_giang_vien'=>$request->input('TenGiangVien'),
@@ -90,6 +111,16 @@ class GiangVienController extends Controller
     public function update(Request $request, GiangVien $giangVien)
     {
         //
+        $this->validate(
+            $request,
+            [
+                'TenGiangVien' => 'required',
+            ],
+            [
+                'TenGiangVien.required' => 'Chưa nhập tên giảng viên',
+
+            ]
+        );
         $giangVien->fill([
             'ten_giang_vien'=>$request->input('TenGiangVien'),
         ]);

@@ -41,6 +41,16 @@ class LopHocController extends Controller
     public function store(Request $request)
     {
         //
+        $this->validate(
+            $request,
+            [
+                'TenLop' => 'required',
+            ],
+            [
+                'TenLop.required' => 'Chưa nhập tên lớp học',
+
+            ]
+        );
         $lopHoc= new LopHoc();
         $lopHoc->fill([
             'ten_lop'=>$request->input('TenLop'),
@@ -90,6 +100,16 @@ class LopHocController extends Controller
     public function update(Request $request, LopHoc $lopHoc)
     {
         //
+        $this->validate(
+            $request,
+            [
+                'TenLop' => 'required',
+            ],
+            [
+                'TenLop.required' => 'Chưa nhập tên lớp học',
+
+            ]
+        );
         $lopHoc->fill([
             'ten_lop'=>$request->input('TenLop'),
         ]);

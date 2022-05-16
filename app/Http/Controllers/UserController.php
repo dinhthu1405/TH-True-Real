@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\PhongHoc;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Storage;
@@ -62,20 +63,25 @@ class UserController extends Controller
         $this->validate(
             $request,
             [
-                'Email' => 'required|email|unique:users,Email',
+                'Email' => 'required|email|unique:users',
                 'MatKhau' => 'required|alphaNum|min:6',
-                'HoTen' => 'max:255',
+                'HoTen' => 'required|max:255',
                 // 'HinhAnh' => 'required',
-                'SDT' => 'max:12',
+                'SDT' => 'required|max:12',
                 'NgaySinh' => 'required',
             ],
             [
+                // 'Email.required' => 'required|email|unique:users',
                 'Email.required' => 'Bạn chưa nhập Email',
-                'Email.Email' => 'Email không đúng định dạng',
+                'Email.unique' => 'Email đã tồn tại',
                 'MatKhau.required' => 'Bạn chưa nhập mật khẩu',
                 'MatKhau.min' => 'Mật khẩu không được nhỏ hơn 6 ký tự',
+                'SDT.required' => 'Bạn chưa nhập số điện thoại',
                 'SDT.max' => 'Số điện thoại không được vượt quá 12 ký tự',
                 'HoTen.max' => 'Họ tên không được vượt quá 255 ký tự',
+                'HoTen.required' => 'Bạn chưa nhập họ & tên',
+                'MatKhau.required' => 'Bạn chưa nhập mật khẩu',
+                'NgaySinh.required' => 'Bạn chưa chọn ngày sinh',
             ]
         );
         $taiKhoan = new User();
@@ -93,18 +99,15 @@ class UserController extends Controller
 
         // $taiKhoan = User::create(request(['MSSV', 'MatKhau','HoTen','SDT','phan_quyen','trang_thai']));
 
-        $ktDTaiKhoan = User::where('email', $request->input('Email'))->first();
-        // return ($ktDiaDanh);
-        if ($ktDTaiKhoan) {
-            return Redirect::back()->with('error', 'Email đã tồn tại');
-        } else {
+
             $taiKhoan->save(); //lưu xong mới có mã địa danh
-        }
         if ($request->hasFile('images')) {
             $taiKhoan->hinh_anh = $request->file('images')->store('images/taiKhoan/' . $taiKhoan->id, 'public');
             $taiKhoan->save();
         }
-
+        if($request->input('NgaySinh') > Carbon::now()) {
+            return Redirect::back()->with('error', 'Nhập ngày sinh không hợp lệ');
+        }
         // dd($taiKhoan);
         return Redirect::route('taiKhoan.index')->with('success', 'Thêm tài khoản thành công');
     }
@@ -152,18 +155,25 @@ class UserController extends Controller
         $this->validate(
             $request,
             [
+                'Email' => 'email|unique:users',
                 'MatKhau' => 'required|alphaNum|min:6',
-                'HoTen' => 'max:255',
+                'HoTen' => 'required|max:255',
                 // 'HinhAnh' => 'required',
-                'SDT' => 'max:12',
+                'SDT' => 'required|max:12',
                 'NgaySinh' => 'required',
             ],
             [
-                // 'MSSV.MSSV' => 'MSSV không đúng định dạng',
+                // 'Email.required' => 'required|email|unique:users',
+
+                'Email.unique' => 'Email đã tồn tại',
                 'MatKhau.required' => 'Bạn chưa nhập mật khẩu',
                 'MatKhau.min' => 'Mật khẩu không được nhỏ hơn 6 ký tự',
+                'SDT.required' => 'Bạn chưa nhập số điện thoại',
                 'SDT.max' => 'Số điện thoại không được vượt quá 12 ký tự',
                 'HoTen.max' => 'Họ tên không được vượt quá 255 ký tự',
+                'HoTen.required' => 'Bạn chưa nhập họ & tên',
+                'MatKhau.required' => 'Bạn chưa nhập mật khẩu',
+                'NgaySinh.required' => 'Bạn chưa chọn ngày sinh',
             ]
         );
         if ($request->hasFile('images')) {
