@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\ViPham;
 use Carbon\Carbon;
 use App\Models\User;
+use App\Models\GiangVien;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreViPhamRequest;
@@ -36,7 +37,9 @@ class ViPhamController extends Controller
     {
         //
         $lstUser=User::all()->where('trang_thai',1);
-        return view('component/vi-pham/vipham-create',['lstUser'=>$lstUser]);
+        $lstUser=User::all()->where('phan_quyen',0);
+        $lstGiangVien=GiangVien::all();
+        return view('component/vi-pham/vipham-create',['lstUser'=>$lstUser,'lstGiangVien'=>$lstGiangVien]);
     }
 
     /**

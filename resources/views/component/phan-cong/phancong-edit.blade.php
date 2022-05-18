@@ -87,7 +87,7 @@
                                             <option value="">-- Chọn Phòng--</option>
                                             @foreach ($lstPhongHoc as $phongHoc)
                                                 <option value="{{ $phongHoc->id }}"
-                                                    @if ($phongHoc->id == $phanCong->phong_id) selected @endif>
+                                                    @if ($phongHoc->id == $phanCong->phong_hoc_id) selected @endif>
                                                     {{ $phongHoc->ten_phong }}</option>
                                             @endforeach
                                         </select>

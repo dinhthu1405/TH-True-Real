@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use App\Models\PhongHoc;
+use App\Models\User;
 
 class PhongHocController extends Controller
 {
@@ -29,7 +30,8 @@ class PhongHocController extends Controller
     {
         //
         $lstPhongHoc=PhongHoc::all();
-        return view('component/phong-hoc/phonghoc-create',['lstPhongHoc'=>$lstPhongHoc]);
+        $lstUser=User::all()->where('phan_quyen',0);
+        return view('component/phong-hoc/phonghoc-create',['lstPhongHoc'=>$lstPhongHoc],['lstUser'=>$lstUser]);
     }
 
     /**
@@ -48,7 +50,6 @@ class PhongHocController extends Controller
             ],
             [
                 'TenPhong.required' => 'Chưa nhập tên phòng',
-
             ]
         );
         $phongHoc= new PhongHoc();
@@ -86,7 +87,8 @@ class PhongHocController extends Controller
     {
         //
         $lstPhongHoc=PhongHoc::all();
-        return view('component/phong-hoc/phonghoc-edit',['phongHoc'=>$phongHoc,'lstPhongHoc'=>$lstPhongHoc]);
+        $lstUser=User::all()->where('phan_quyen',0);
+        return view('component/phong-hoc/phonghoc-edit',['phongHoc'=>$phongHoc,'lstPhongHoc'=>$lstPhongHoc],['lstUser'=>$lstUser]);
     }
 
     /**

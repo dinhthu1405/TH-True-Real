@@ -11,6 +11,8 @@ use App\Http\Controllers\MayController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ViPhamController;
+use App\Http\Controllers\ThongKeController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -38,6 +40,7 @@ Route::resource('taiKhoan', UserController::class)->middleware('auth');
 Route::resource('loi', LoiController::class)->middleware('auth');
 Route::resource('phanCong', PhanCongController::class)->middleware('auth');
 Route::resource('viPham', ViPhamController::class)->middleware('auth');
+Route::resource('thongKe', ThongKeController::class)->middleware('auth');
 
 //xoa
 Route::get('/phongHoc/xoa/{id}', [PhongHocController::class, 'xoa'])->name('phongHoc.xoa')->middleware('auth');

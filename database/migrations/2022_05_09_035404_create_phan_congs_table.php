@@ -18,11 +18,9 @@ class CreatePhanCongsTable extends Migration
             $table->string('ten_ca');
             $table->date('ngay_bat_dau');
             $table->date('ngay_ket_thuc');
-            $table->unsignedBigInteger('phong_id');
-            // $table->unsignedBigInteger('lop_id');
-            // $table->unsignedBigInteger('giang_vien_id');
+            $table->unsignedBigInteger('phong_hoc_id');
             $table->unsignedBigInteger('user_id');
-            $table->foreign('phong_id')->references('id')->on('phong_hocs');
+            $table->foreign('phong_hoc_id')->references('id')->on('phong_hocs');
             $table->foreign('user_id')->references('id')->on('users');
             $table->boolean('trang_thai')->nullable()->default(1);
             $table->timestamps();
