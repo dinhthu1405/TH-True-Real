@@ -159,11 +159,13 @@
                                         <th>Phòng</th>
                                         <th>Số máy</th>
                                         <th>Tài khoản</th>
+                                        <th>Giảng viên</th>
+                                        <th>Lớp học</th>
                                         <th>Tình trạng lỗi</th>
                                         @if (Auth::user()->phan_quyen == 1)
                                             <th>Xóa</th>
-                                            <th>Sửa</th>
                                         @endif
+                                        <th>Sửa</th>
 
                                     </thead>
                                     @foreach ($lstLoi as $loi)
@@ -245,6 +247,8 @@
                                                 <td>{{ $loi->phongHoc->ten_phong }}</td>
                                                 <td>{{ $loi->may->so_may }}</td>
                                                 <td>{{ $loi->user->email }}</td>
+                                                <td>{{ $loi->giangVien->ten_giang_vien }}</td>
+                                                <td>{{ $loi->lopHoc->ten_lop }}</td>
                                                 <td>{{ $loi->tinh_trang_loi }}</td>
                                                 @if (Auth::user()->phan_quyen == 1)
                                                     <td>
@@ -253,9 +257,9 @@
                                                                 class="btn btn-danger" type="submit">Xóa</button></a>
                                                         <!-- </a> -->
                                                     </td>
-                                                    <td><a href="{{ route('loi.edit', $loi->id) }}"><button
-                                                                class="btn btn-warning">Sửa</button></a></td>
                                                 @endif
+                                                <td><a href="{{ route('loi.edit', $loi->id) }}"><button
+                                                            class="btn btn-warning">Sửa</button></a></td>
 
                                             </tr>
                                         </tbody>

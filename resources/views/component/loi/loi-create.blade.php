@@ -95,6 +95,27 @@
 
                                     </select>
                                 </div>
+                                <div class="col-md-6 pr-1">
+                                    <label>Giảng viên</label>
+                                    <select name="GiangVien" id="" class="form-control">
+                                        <option value="">-- Chọn giảng viên--</option>
+                                        @foreach ($lstGiangVien as $giangVien)
+                                            <option value="{{ $giangVien->id }}">{{ $giangVien->ten_giang_vien }}
+                                            </option>
+                                        @endforeach
+
+                                    </select>
+                                </div>
+                                <div class="col-md-6 pr-1">
+                                    <label>Lớp học</label>
+                                    <select name="LopHoc" id="" class="form-control">
+                                        <option value="">-- Chọn lớp học--</option>
+                                        @foreach ($lstLopHoc as $lopHoc)
+                                            <option value="{{ $lopHoc->id }}">{{ $lopHoc->ten_lop }}</option>
+                                        @endforeach
+
+                                    </select>
+                                </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-12 pr-1"><br>

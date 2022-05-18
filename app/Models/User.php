@@ -68,11 +68,9 @@ class User extends Authenticatable
         return $this->hasMany(Loi::class);
     }
 
-    public function phongHocs()
+    public function phongHoc()
     {
-        //withPivot('column1', 'column2')->Lấy các cột trung gian của 2 cột
-        //Với tham số thứ 3 sẽ là khóa ngoại của bảng đang định nghĩa quan hệ và tham số thứ 4 là bảng chúng ta muốn join
-        return $this->belongsToMany(PhongHoc::class, 'phong_hoc_users', 'user_id', 'phong_id');
+        return $this->belongsTo(PhongHoc::class);
     }
 
     public function phanCongs()

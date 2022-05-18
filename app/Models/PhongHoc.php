@@ -18,6 +18,7 @@ class PhongHoc extends Model
     protected $fillable = [
         'id',
         'ten_phong',
+        'user_id',
         'trang_thai',
     ];
     /**
@@ -37,7 +38,7 @@ class PhongHoc extends Model
 
     public function users()
     {
-        return $this->belongsToMany(User::class);
+        return $this->hasMany(User::class);
     }
     public function phanCong()
     {

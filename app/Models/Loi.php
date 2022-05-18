@@ -22,6 +22,8 @@ class Loi extends Model
     'may_id',
     'user_id',
     'phong_id',
+    'giang_vien_id',
+    'lop_hoc_id',
     'tinh_trang_loi',
     'trang_thai',
   ];
@@ -39,5 +41,24 @@ class Loi extends Model
   public function phongHoc()
   {
     return $this->belongsTo(PhongHoc::class, 'phong_id');
+  }
+
+  public function nguoiDungs()
+  {
+      return $this->hasManyThrough(User::class, PhongHoc::class);
+  }
+
+  public function nguoiDung()
+  {
+      return $this->hasOneThrough(User::class, PhongHoc::class);
+  }
+
+  public function giangVien()
+  {
+    return $this->belongsTo(GiangVien::class);
+  }
+  public function lopHoc()
+  {
+    return $this->belongsTo(LopHoc::class);
   }
 }

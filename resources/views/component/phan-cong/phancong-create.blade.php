@@ -69,7 +69,6 @@
                                     </select>
                                 </div>
                                 <div class="col-md-4 pr-1">
-
                                     <label>Tên Người Trực</label>
                                     <select name="TenNguoiTruc" id="" class="form-control">
                                         <option value="">-- Chọn Người Trực--</option>
@@ -78,7 +77,6 @@
                                                 {{ $user->ho_ten }}</option>
                                         @endforeach
                                     </select>
-
                                 </div>
                                 <div class="col-md-4 pr-1">
                                     <label>Chọn Ca</label>
@@ -112,8 +110,6 @@
                                     </div>
                                 </div>
                             </div>
-
-                            {{--  --}}
                             <br>
                             <div class="row">
                                 <div class="update ml-auto mr-auto">

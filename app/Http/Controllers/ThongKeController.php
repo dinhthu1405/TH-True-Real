@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\ThongKe;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 
 class ThongKeController extends Controller
 {
@@ -15,6 +16,9 @@ class ThongKeController extends Controller
     public function index()
     {
         //
+        $lstThongKe=ThongKe::all();
+        return view('component/thong-ke/thongke-show',['lstThongKe'=>$lstThongKe]);
+
     }
 
     /**

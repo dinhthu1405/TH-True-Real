@@ -158,11 +158,13 @@
                                         <th>Phòng</th>
                                         <th>Số máy</th>
                                         <th>Tài khoản</th>
+                                        <th>Giảng viên</th>
+                                        <th>Lớp học</th>
                                         <th>Tình trạng lỗi</th>
                                         <?php if(Auth::user()->phan_quyen == 1): ?>
                                             <th>Xóa</th>
-                                            <th>Sửa</th>
                                         <?php endif; ?>
+                                        <th>Sửa</th>
 
                                     </thead>
                                     <?php $__currentLoopData = $lstLoi; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $loi): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
@@ -198,6 +200,8 @@
                                                 <td><?php echo e($loi->phongHoc->ten_phong); ?></td>
                                                 <td><?php echo e($loi->may->so_may); ?></td>
                                                 <td><?php echo e($loi->user->email); ?></td>
+                                                <td><?php echo e($loi->giangVien->ten_giang_vien); ?></td>
+                                                <td><?php echo e($loi->lopHoc->ten_lop); ?></td>
                                                 <td><?php echo e($loi->tinh_trang_loi); ?></td>
                                                 <?php if(Auth::user()->phan_quyen == 1): ?>
                                                     <td>
@@ -206,9 +210,9 @@
                                                                 class="btn btn-danger" type="submit">Xóa</button></a>
                                                         <!-- </a> -->
                                                     </td>
-                                                    <td><a href="<?php echo e(route('loi.edit', $loi->id)); ?>"><button
-                                                                class="btn btn-warning">Sửa</button></a></td>
                                                 <?php endif; ?>
+                                                <td><a href="<?php echo e(route('loi.edit', $loi->id)); ?>"><button
+                                                            class="btn btn-warning">Sửa</button></a></td>
 
                                             </tr>
                                         </tbody>

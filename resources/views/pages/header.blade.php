@@ -335,7 +335,7 @@
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
                                     {{-- <a href="{{route('baiViet.index')}}" class="nav-link"> --}}
-                                    <a href="#" class="nav-link">
+                                    <a href="{{ route('thongKe.index') }}" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Thống kê máy lỗi</p>
                                     </a>

@@ -92,11 +92,13 @@
                                         <div class="btn-group" data-bs-toggle="buttons">
                                             <label class="btn btn-success active">
                                                 <input type="radio" class="me-2" name="radiobtn" id=""
-                                                    value="Đã sửa" autocomplete="off" checked>
+                                                    value="Đã sửa" autocomplete="off"
+                                                    {{ $loi->tinh_trang_loi == 'Đã sửa' ? 'checked' : '' }}>
                                             </label>
                                             <label class="btn btn-danger">
                                                 <input type="radio" name="radiobtn" id="" autocomplete="off"
-                                                    value="Chưa sửa">
+                                                    value="Chưa sửa"
+                                                    {{ $loi->tinh_trang_loi == 'Chưa sửa' ? 'checked' : '' }}>
                                             </label>
                                         </div>
                                         {{-- <div class="btn-group" data-toggle="buttons">
@@ -145,6 +147,7 @@
                                     <input hidden type="text" readonly name="May" class="form-control"
                                         value="{{ $loi->may->id }}">
 
+
                                     {{-- <select name="May" id="" class="form-control">
                                         <option value="">-- Chọn Máy--</option>
                                         @foreach ($lstMay as $may)
@@ -157,12 +160,36 @@
                                 </div>
 
                             </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label>Giảng viên</label>
+                                    <input type="text" disabled name="GiangViens" class="form-control"
+                                        value="{{ $loi->giangVien->ten_giang_vien }}">
+                                    <input hidden type="text" readonly name="GiangVien" class="form-control"
+                                        value="{{ $loi->giangVien->id }}">
+
+                                </div>
+                                <div class="col-md-6">
+                                    <label>Lớp học</label>
+                                    <input type="text" disabled name="LopHocs" class="form-control"
+                                        value="{{ $loi->lopHoc->ten_lop }}">
+                                    <input hidden type="text" readonly name="LopHoc" class="form-control"
+                                        value="{{ $loi->lopHoc->id }}">
+                                </div>
+                            </div>
                             <br>
                             <div class="row">
                                 <label>Tên lỗi</label>
+
                                 <div class="form-group">
-                                    <textarea class="form-control" name="TenLoi" id="" cols="165" rows="10">{{ $loi->ten_loi }}</textarea>
+                                    <textarea disabled class="form-control" name="TenLoi" id="" cols="165" rows="10">{{ $loi->ten_loi }}</textarea>
                                 </div>
+
+                                <div class="form-group">
+                                    <textarea hidden class="form-control" name="TenLoi" id="" cols="165" rows="10">{{ $loi->ten_loi }}</textarea>
+                                </div>
+
+
                             </div>
                             <div class="row">
                                 <div class="update ml-auto mr-auto">
