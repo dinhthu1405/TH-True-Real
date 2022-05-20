@@ -11,14 +11,15 @@
                     <!-- small box -->
                     <div class="small-box bg-info">
                         <div class="inner">
-                            <h3>150</h3>
+                            <h3>{{ $loi }}</h3>
 
                             <p>Lỗi mới</p>
                         </div>
                         <div class="icon">
                             <i class="ion ion-stats-bars"></i>
                         </div>
-                        <a href="#" class="small-box-footer">Thêm thông tin <i class="fas fa-arrow-circle-right"></i></a>
+                        <a href="{{ route('loi.index') }}" class="small-box-footer">Thêm thông tin <i
+                                class="fas fa-arrow-circle-right"></i></a>
                     </div>
                 </div>
                 <!-- ./col -->
@@ -26,14 +27,15 @@
                     <!-- small box -->
                     <div class="small-box bg-success">
                         <div class="inner">
-                            <h3>53</h3>
+                            <h3>{{ $viPham }}</h3>
 
                             <p>Vi phạm mới</p>
                         </div>
                         <div class="icon">
                             <i class="ion ion-stats-bars"></i>
                         </div>
-                        <a href="#" class="small-box-footer">Thêm thông tin <i class="fas fa-arrow-circle-right"></i></a>
+                        <a href="{{ route('viPham.index') }}" class="small-box-footer">Thêm thông tin <i
+                                class="fas fa-arrow-circle-right"></i></a>
                     </div>
                 </div>
                 <!-- ./col -->
@@ -41,14 +43,15 @@
                     <!-- small box -->
                     <div class="small-box bg-warning">
                         <div class="inner">
-                            <h3>44</h3>
+                            <h3>{{ $taiKhoan }}</h3>
 
                             <p>Tài khoản bị mới bị khóa</p>
                         </div>
                         <div class="icon">
                             <i class="ion ion-paper-airplane"></i>
                         </div>
-                        <a href="#" class="small-box-footer">Thêm thông tin <i class="fas fa-arrow-circle-right"></i></a>
+                        <a href="{{ route('taiKhoan.index') }}" class="small-box-footer">Thêm thông tin <i
+                                class="fas fa-arrow-circle-right"></i></a>
                     </div>
                 </div>
                 <!-- ./col -->
@@ -56,14 +59,15 @@
                     <!-- small box -->
                     <div class="small-box bg-danger">
                         <div class="inner">
-                            <h3>65</h3>
+                            <h3>{{ $phanCong }}</h3>
 
-                            <p>Báo cáo mới</p>
+                            <p>Phân Công mới</p>
                         </div>
                         <div class="icon">
                             <i class="ion ion-chatboxes"></i>
                         </div>
-                        <a href="#" class="small-box-footer">Thêm thông tin <i class="fas fa-arrow-circle-right"></i></a>
+                        <a href="{{ route('phanCong.index') }}" class="small-box-footer">Thêm thông tin <i
+                                class="fas fa-arrow-circle-right"></i></a>
                     </div>
                 </div>
                 <!-- ./col -->

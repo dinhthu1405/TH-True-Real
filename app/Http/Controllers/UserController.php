@@ -30,12 +30,27 @@ class UserController extends Controller
     public function index(User $user)
     {
         //
-        $lstTaiKhoan = User::all();
+        if (Auth::user()->phan_quyen == 1){
+            $lstTaiKhoan = User::all();
         foreach ($lstTaiKhoan as $taiKhoan) {
             $this->fixImage($taiKhoan);
             //gọi fixImage cho từng sản phẩm, do lúc seed chỉ có dữ liệu giả
         }
         return view('component/tai-khoan/taikhoan-show', ['lstTaiKhoan' => $lstTaiKhoan]);
+       }else{
+                abort('403', __('Bạn không có quyền vào trang này'));
+            }
+    }
+
+
+    public function search(Request $request){
+        $search = $request->input('search');
+        $lstTaiKhoan = User::where('email','LIKE','%'.$search.'%')->orWhere('ngay_sinh','LIKE','%'.$search.'%')->orWhere('sdt','LIKE','%'.$search.'%')->orWhere('ho_ten','LIKE','%'.$search.'%')->get();
+        foreach ($lstTaiKhoan as $taiKhoan) {
+            $this->fixImage($taiKhoan);
+            //gọi fixImage cho từng sản phẩm, do lúc seed chỉ có dữ liệu giả
+        }
+        return view('component/tai-khoan/taikhoan-show', ['lstTaiKhoan'=>$lstTaiKhoan]);
     }
 
     /**
@@ -46,9 +61,13 @@ class UserController extends Controller
     public function create()
     {
         //
+      if (Auth::user()->phan_quyen == 1){
         $lstTaiKhoan = User::all();
         $lstPhong = PhongHoc::all();
         return view('component/tai-khoan/taikhoan-create', ['lstTaiKhoan' => $lstTaiKhoan, 'lstPhong' => $lstPhong]);
+       }else{
+                abort('403', __('Bạn không có quyền vào trang này'));
+            }
     }
 
     /**
@@ -128,6 +147,7 @@ class UserController extends Controller
         //
         $taiKhoan=User::find($id);
         return view('component.tai-khoan.taikhoan-maneger', ['taiKhoan'=>$taiKhoan]);
+
     }
 
     /**
@@ -139,7 +159,11 @@ class UserController extends Controller
     public function edit(User $taiKhoan)
     {
         //
-        return view('component/tai-khoan/taikhoan-edit', ['taiKhoan' => $taiKhoan]);
+        if (Auth::user()->phan_quyen == 1){
+            return view('component/tai-khoan/taikhoan-edit', ['taiKhoan' => $taiKhoan]);
+        }else{
+                    abort('403', __('Bạn không có quyền vào trang này'));
+                }
     }
 
     /**

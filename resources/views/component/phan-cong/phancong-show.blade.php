@@ -6,7 +6,7 @@
 
     @if ($lstPhanCong->isNotEmpty())
         <section class="content" style="padding-left: 2%; padding-bottom: 2%">
-            <form action="#" method="post">
+            <form action="{{ route('phanCong.search') }}" method="post">
                 {{ csrf_field() }}
                 <div class="row">
                     <div class="col-md-4">
@@ -57,7 +57,10 @@
                                     @foreach ($lstPhanCong as $phanCong)
                                         <tbody>
                                             <tr>
-                                                <td>{{ $phanCong->users->ho_ten }}</td>
+                                                <td>
+
+                                                    {{ $phanCong->users->ho_ten }}
+                                                </td>
                                                 <td>{{ $phanCong->ten_ca }}</td>
                                                 <td>{{ Str::limit($phanCong->phongHocs->ten_phong, 15) }}</td>
                                                 <td>{{ $phanCong->ngay_bat_dau }}</td>

@@ -99,7 +99,7 @@
                     <?php endif; ?>
                 </div>
                 <div class="info">
-                    <a href="#" class="d-block">
+                    <a href="<?php echo e(route('taiKhoan.maneger', ['id' => Auth::user()->id])); ?>" class="d-block">
                         <?php if(Auth::check()): ?>
                             <?php echo e(Auth::user()->ho_ten); ?>
 
@@ -225,34 +225,7 @@
                                 </p>
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon fas fa-stream"></i>
-                                <p>
-                                    Thống kê
-                                    <i class="fas fa-angle-left right"></i>
-                                </p>
-                            </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    
-                                    <a href="<?php echo e(route('thongKe.index')); ?>" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Thống kê máy lỗi</p>
-                                    </a>
-                                </li>
-                            </ul>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    
-                                    <a href="#" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Thống kê máy lỗi đã sửa</p>
-                                    </a>
-                                </li>
-                            </ul>
-                            
-                        </li>
+                        
                     <?php endif; ?>
                     <li class="nav-item">
                         <a href="<?php echo e(route('logout')); ?>" class="nav-link">

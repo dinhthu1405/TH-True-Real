@@ -4,7 +4,7 @@
 
     <?php if($lstTaiKhoan->isNotEmpty()): ?>
         <section class="content" style="padding-left: 2%; padding-bottom: 2%">
-            <form action="#" method="post">
+            <form action="<?php echo e(route('taiKhoan.search')); ?>" method="post">
                 <?php echo e(csrf_field()); ?>
 
 

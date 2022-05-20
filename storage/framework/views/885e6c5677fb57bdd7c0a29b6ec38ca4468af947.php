@@ -119,7 +119,7 @@
     </style>
     <?php if($lstLoi->isNotEmpty()): ?>
         <section class="content" style="padding-left: 2%; padding-bottom: 2%">
-            <form action="#" method="post">
+            <form action="<?php echo e(route('loi.search')); ?>" method="post">
                 <?php echo e(csrf_field()); ?>
 
                 <div class="row">
@@ -170,10 +170,8 @@
                                     <?php $__currentLoopData = $lstLoi; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $loi): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                         <tbody>
                                             <tr>
-
                                                 <td><?php echo e(Str::limit($loi->ten_loi, 10)); ?>
 
-                                                    ...
                                                     <a href="#"
                                                         onclick="document.getElementById('id<?php echo e($loi->id); ?>').style.display='block'"
                                                         style="width:auto;">Xem thêm</a>
@@ -202,13 +200,20 @@
                                                 <td><?php echo e($loi->user->email); ?></td>
                                                 <td><?php echo e($loi->giangVien->ten_giang_vien); ?></td>
                                                 <td><?php echo e($loi->lopHoc->ten_lop); ?></td>
-                                                <td><?php echo e($loi->tinh_trang_loi); ?></td>
+                                                <td>
+                                                    <?php if($loi->tinh_trang_loi == 'Đã sửa'): ?>
+                                                        <span style="color: green"><?php echo e($loi->tinh_trang_loi); ?></span>
+                                                    <?php else: ?>
+                                                        <span style="color: red"><?php echo e($loi->tinh_trang_loi); ?></span>
+                                                    <?php endif; ?>
+
+                                                </td>
                                                 <?php if(Auth::user()->phan_quyen == 1): ?>
                                                     <td>
                                                         <a href="<?php echo e(route('loi.xoa', $loi->id)); ?>"
                                                             onclick="return confirm('Bạn có chắc muốn xoá Lỗi này')"><button
                                                                 class="btn btn-danger" type="submit">Xóa</button></a>
-                                                        <!-- </a> -->
+
                                                     </td>
                                                 <?php endif; ?>
                                                 <td><a href="<?php echo e(route('loi.edit', $loi->id)); ?>"><button
