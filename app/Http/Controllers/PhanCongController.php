@@ -26,6 +26,12 @@ class PhanCongController extends Controller
         return View('component/phan-cong/phancong-show', ['lstPhanCong'=>$lstPhanCong]);
     }
 
+    public function search(Request $request){
+        $search = $request->input('search');
+        $lstPhanCong = PhanCong::where('ten_ca','LIKE','%'.$search.'%')->orWhere('ngay_bat_dau','LIKE','%'.$search.'%')->get();
+        return view('component/phan-cong/phancong-show', ['lstPhanCong'=>$lstPhanCong]);
+
+    }
     /**
      * Show the form for creating a new resource.
      *

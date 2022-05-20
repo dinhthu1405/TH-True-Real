@@ -3,7 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Home;
+use App\Models\Loi;
+use App\Models\ViPham;
+use App\Models\User;
+use App\Models\PhanCong;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -15,7 +20,16 @@ class HomeController extends Controller
     public function index()
     {
         //
-        return view("home");
+       if (Auth::user()->phan_quyen == 1){
+        $loi=Loi::where('trang_thai',1)->count('id');
+        $viPham=ViPham::where('trang_thai',1)->count('id');
+        $taiKhoan=User::where('trang_thai',0)->count('id');
+        $phanCong=PhanCong::where('trang_thai',1)->count('id');
+
+        return view("home",compact('loi','viPham','taiKhoan','phanCong'));
+        }else{
+                        abort('403', __('Bạn không có quyền vào trang này'));
+                    }
     }
 
     /**

@@ -27,6 +27,12 @@ class LoiController extends Controller
         return view('component/loi/loi-show', ['lstLoi' => $lstLoi]);
     }
 
+    public function search(Request $request){
+        $search = $request->input('search');
+        $lstLoi = Loi::where('ten_loi','LIKE','%'.$search.'%')->orWhere('thoi_gian','LIKE','%'.$search.'%')->orWhere('tinh_trang_loi','LIKE','%'.$search.'%')->get();
+// dd($lstLoi);
+        return view('component/loi/loi-show', ['lstLoi'=>$lstLoi]);
+    }
     /**
      * Show the form for creating a new resource.
      *

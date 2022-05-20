@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\GiangVien;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Auth;
 
 class GiangVienController extends Controller
 {
@@ -16,19 +17,18 @@ class GiangVienController extends Controller
     public function index()
     {
         //
-        $lstGiangVien = GiangVien::all()->where('trang_thai',1);
-        return view('component/giang-vien/giangvien-show', ['lstGiangVien'=>$lstGiangVien]);
+        if (Auth::user()->phan_quyen == 1){
+            $lstGiangVien = GiangVien::all()->where('trang_thai',1);
+            return view('component/giang-vien/giangvien-show', ['lstGiangVien'=>$lstGiangVien]);
+            }else{
+                abort('403', __('Bạn không có quyền vào trang này'));
+            }
     }
 
     public function search(Request $request){
-        // Get the search value from the request
         $search = $request->input('search');
-        // Search in the title and body columns from the posts table
         $lstGiangVien = GiangVien::where('ten_giang_vien','LIKE','%'.$search.'%')->get();
-    // return $lstDiaDanh;
     return view('component/giang-vien/giangvien-show', ['lstGiangVien'=>$lstGiangVien]);
-        // Return the search view with the resluts compacted
-        // return view('component/dia-danh/diadanh-search', compact('lstDiaDanh'));
     }
 
     /**
@@ -39,8 +39,12 @@ class GiangVienController extends Controller
     public function create()
     {
         //
+      if (Auth::user()->phan_quyen == 1){
         $lstGiangVien=GiangVien::all();
         return view('component/giang-vien/giangvien-create',['lstGiangVien'=>$lstGiangVien]);
+        }else{
+                abort('403', __('Bạn không có quyền vào trang này'));
+            }
     }
 
     /**
@@ -97,8 +101,12 @@ class GiangVienController extends Controller
     public function edit(GiangVien $giangVien)
     {
         //
+       if (Auth::user()->phan_quyen == 1){
         $lstGiangVien=GiangVien::all();
         return view('component/giang-vien/giangvien-edit',['giangVien'=>$giangVien,'lstGiangVien'=>$lstGiangVien]);
+        }else{
+                    abort('403', __('Bạn không có quyền vào trang này'));
+                }
     }
 
     /**

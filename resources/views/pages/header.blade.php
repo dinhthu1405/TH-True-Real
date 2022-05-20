@@ -189,7 +189,7 @@
                     @endif
                 </div>
                 <div class="info">
-                    <a href="#" class="d-block">
+                    <a href="{{ route('taiKhoan.maneger', ['id' => Auth::user()->id]) }}" class="d-block">
                         @if (Auth::check())
                             {{ Auth::user()->ho_ten }}
                         @endif
@@ -324,7 +324,7 @@
                                 </p>
                             </a>
                         </li>
-                        <li class="nav-item">
+                        {{-- <li class="nav-item">
                             <a href="#" class="nav-link">
                                 <i class="nav-icon fas fa-stream"></i>
                                 <p>
@@ -334,7 +334,6 @@
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    {{-- <a href="{{route('baiViet.index')}}" class="nav-link"> --}}
                                     <a href="{{ route('thongKe.index') }}" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Thống kê máy lỗi</p>
@@ -343,23 +342,13 @@
                             </ul>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    {{-- <a href="{{route('baiViet.index')}}" class="nav-link"> --}}
                                     <a href="#" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Thống kê máy lỗi đã sửa</p>
                                     </a>
                                 </li>
                             </ul>
-                            {{-- <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="{{route('baiViet.index')}}" class="nav-link">
-                                    <a href="#" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Thống kê vi phạm</p>
-                                    </a>
-                                </li>
-                            </ul> --}}
-                        </li>
+                        </li> --}}
                     @endif
                     <li class="nav-item">
                         <a href="{{ route('logout') }}" class="nav-link">

@@ -6,7 +6,9 @@ use App\Models\ViPham;
 use Carbon\Carbon;
 use App\Models\User;
 use App\Models\GiangVien;
+
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreViPhamRequest;
 use App\Http\Requests\UpdateViPhamRequest;
@@ -22,12 +24,20 @@ class ViPhamController extends Controller
     public function index()
     {
         //
-        $lstViPham=ViPham::all()->where('trang_thai',1)->sortBy('thoi_gian');
-        $lstUser=User::all();
-        return view('component/vi-pham/vipham-show', ['lstViPham' => $lstViPham,'lstUser',$lstUser]);
-
+        if (Auth::user()->phan_quyen == 1){
+            $lstViPham=ViPham::all()->where('trang_thai',1)->sortBy('thoi_gian');
+            $lstUser=User::all();
+            return view('component/vi-pham/vipham-show', ['lstViPham' => $lstViPham,'lstUser',$lstUser]);
+        }else{
+            abort('403', __('Bạn không có quyền vào trang này'));
+        }
     }
 
+    public function search(Request $request){
+        $search = $request->input('search');
+        $lstViPham = ViPham::where('loi_vi_pham','LIKE','%'.$search.'%')->orWhere('thoi_gian','LIKE','%'.$search.'%')->get();
+        return view('component/vi-pham/vipham-show', ['lstViPham'=>$lstViPham]);
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -36,10 +46,14 @@ class ViPhamController extends Controller
     public function create()
     {
         //
+       if (Auth::user()->phan_quyen == 1){
         $lstUser=User::all()->where('trang_thai',1);
         $lstUser=User::all()->where('phan_quyen',0);
         $lstGiangVien=GiangVien::all();
         return view('component/vi-pham/vipham-create',['lstUser'=>$lstUser,'lstGiangVien'=>$lstGiangVien]);
+        }else{
+            abort('403', __('Bạn không có quyền vào trang này'));
+        }
     }
 
     /**
@@ -107,8 +121,12 @@ class ViPhamController extends Controller
     public function edit(ViPham $viPham)
     {
         //
-        $lstUser=User::all();
-        return view('component/vi-pham/vipham-edit',['viPham'=>$viPham,'lstUser'=>$lstUser]);
+        if (Auth::user()->phan_quyen == 1){
+            $lstUser=User::all();
+            return view('component/vi-pham/vipham-edit',['viPham'=>$viPham,'lstUser'=>$lstUser]);
+             }else{
+                abort('403', __('Bạn không có quyền vào trang này'));
+            }
     }
 
     /**

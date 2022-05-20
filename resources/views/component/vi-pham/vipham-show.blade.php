@@ -3,10 +3,9 @@
 @section('title', 'Trang quản lý vi phạm')
 @section('content')
 
-
     @if ($lstViPham->isNotEmpty())
         <section class="content" style="padding-left: 2%; padding-bottom: 2%">
-            <form action="#" method="post">
+            <form action="{{ route('viPham.search') }}" method="post">
                 {{ csrf_field() }}
                 <div class="row">
                     <div class="col-md-4">
@@ -26,12 +25,14 @@
 
                         <div class="row">
                             <div class="col-md-10">
-                                <h4 style="padding-top: 25px; padding-left: 25px" class="card-title">Thông Tin Vi Phạm
+                                <h4 style="padding-top: 25px; padding-left: 25px" class="card-title">Thông Tin Vi
+                                    Phạm
                                 </h4>
                             </div>
                             <div style="padding-top: 18px" class="col-md-2">
                                 <a href="{{ route('viPham.create') }}" class="">
-                                    <button class="btn btn-success"> <i class="fas fa-plus"></i> Thêm Vi Phạm</button>
+                                    <button class="btn btn-success"> <i class="fas fa-plus"></i> Thêm Vi
+                                        Phạm</button>
                                 </a>
                             </div>
                         </div>
@@ -83,4 +84,5 @@
             </div>
         </div>
     @endif
+
 @endsection

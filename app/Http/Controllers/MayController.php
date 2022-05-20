@@ -7,7 +7,7 @@ use App\Models\PhongHoc;
 use App\Models\User;
 
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 
 class MayController extends Controller
@@ -20,25 +20,19 @@ class MayController extends Controller
     public function index()
     {
         //
+    if (Auth::user()->phan_quyen == 1){
         $lstMay = May::all()->where('trang_thai', 1)->sortBy([['phong_id'],['so_may']]);
         return view('component/may/may-show', ['lstMay' => $lstMay]);
+         }else{
+                                abort('403', __('Bạn không có quyền vào trang này'));
+                            }
     }
+
     public function search(Request $request){
-        // Get the search value from the request
         $search = $request->input('search');
-        // $search=May::search($request->input('search'))->get();
-        // Search in the title and body columns from the posts table
         $lstPhong=PhongHoc::where('ten_phong','LIKE','%'.$search.'%')->get();
-        // $getPhong=May::whereHas('ten_phong', function($q) use($name) {
-        //     $q->where('phong_id', 'like', '%' . $name . '%');
-        // })->get();
-
         $lstMay = May::where('so_may','LIKE','%'.$search.'%')->get();
-
-
-    // return $lstDiaDanh;
     return view('component/may/may-show', compact('lstMay'));
-        // Return the search view with the resluts compacted
     }
     /**
      * Show the form for creating a new resource.
@@ -49,7 +43,7 @@ class MayController extends Controller
     {
         //
         $lstMay = May::all();
-        $lstPhongHoc = PhongHoc::all()->sortBy(['ten_phong','DESC']);
+        $lstPhongHoc = PhongHoc::all()->sortBy(['id','DESC']);
         return view('component/may/may-create', ['lstMay' => $lstMay, 'lstPhongHoc' => $lstPhongHoc]);
     }
 

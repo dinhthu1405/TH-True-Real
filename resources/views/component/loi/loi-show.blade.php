@@ -121,7 +121,7 @@
     </style>
     @if ($lstLoi->isNotEmpty())
         <section class="content" style="padding-left: 2%; padding-bottom: 2%">
-            <form action="#" method="post">
+            <form action="{{ route('loi.search') }}" method="post">
                 {{ csrf_field() }}
                 <div class="row">
                     <div class="col-md-4">
@@ -171,9 +171,7 @@
                                     @foreach ($lstLoi as $loi)
                                         <tbody>
                                             <tr>
-
                                                 <td>{{ Str::limit($loi->ten_loi, 10) }}
-                                                    ...
                                                     <a href="#"
                                                         onclick="document.getElementById('id{{ $loi->id }}').style.display='block'"
                                                         style="width:auto;">Xem thêm</a>
@@ -249,13 +247,20 @@
                                                 <td>{{ $loi->user->email }}</td>
                                                 <td>{{ $loi->giangVien->ten_giang_vien }}</td>
                                                 <td>{{ $loi->lopHoc->ten_lop }}</td>
-                                                <td>{{ $loi->tinh_trang_loi }}</td>
+                                                <td>
+                                                    @if ($loi->tinh_trang_loi == 'Đã sửa')
+                                                        <span style="color: green">{{ $loi->tinh_trang_loi }}</span>
+                                                    @else
+                                                        <span style="color: red">{{ $loi->tinh_trang_loi }}</span>
+                                                    @endif
+
+                                                </td>
                                                 @if (Auth::user()->phan_quyen == 1)
                                                     <td>
                                                         <a href="{{ route('loi.xoa', $loi->id) }}"
                                                             onclick="return confirm('Bạn có chắc muốn xoá Lỗi này')"><button
                                                                 class="btn btn-danger" type="submit">Xóa</button></a>
-                                                        <!-- </a> -->
+
                                                     </td>
                                                 @endif
                                                 <td><a href="{{ route('loi.edit', $loi->id) }}"><button
