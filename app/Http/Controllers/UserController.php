@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\PhongHoc;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Storage;
@@ -29,12 +30,27 @@ class UserController extends Controller
     public function index(User $user)
     {
         //
-        $lstTaiKhoan = User::all();
+        if (Auth::user()->phan_quyen == 1){
+            $lstTaiKhoan = User::all();
         foreach ($lstTaiKhoan as $taiKhoan) {
             $this->fixImage($taiKhoan);
             //gọi fixImage cho từng sản phẩm, do lúc seed chỉ có dữ liệu giả
         }
         return view('component/tai-khoan/taikhoan-show', ['lstTaiKhoan' => $lstTaiKhoan]);
+       }else{
+                abort('403', __('Bạn không có quyền vào trang này'));
+            }
+    }
+
+
+    public function search(Request $request){
+        $search = $request->input('search');
+        $lstTaiKhoan = User::where('email','LIKE','%'.$search.'%')->orWhere('ngay_sinh','LIKE','%'.$search.'%')->orWhere('sdt','LIKE','%'.$search.'%')->orWhere('ho_ten','LIKE','%'.$search.'%')->get();
+        foreach ($lstTaiKhoan as $taiKhoan) {
+            $this->fixImage($taiKhoan);
+            //gọi fixImage cho từng sản phẩm, do lúc seed chỉ có dữ liệu giả
+        }
+        return view('component/tai-khoan/taikhoan-show', ['lstTaiKhoan'=>$lstTaiKhoan]);
     }
 
     /**
@@ -45,9 +61,13 @@ class UserController extends Controller
     public function create()
     {
         //
+      if (Auth::user()->phan_quyen == 1){
         $lstTaiKhoan = User::all();
         $lstPhong = PhongHoc::all();
         return view('component/tai-khoan/taikhoan-create', ['lstTaiKhoan' => $lstTaiKhoan, 'lstPhong' => $lstPhong]);
+       }else{
+                abort('403', __('Bạn không có quyền vào trang này'));
+            }
     }
 
     /**
@@ -62,20 +82,25 @@ class UserController extends Controller
         $this->validate(
             $request,
             [
-                'Email' => 'required|email|unique:users,Email',
+                'Email' => 'required|email|unique:users',
                 'MatKhau' => 'required|alphaNum|min:6',
-                'HoTen' => 'max:255',
+                'HoTen' => 'required|max:255',
                 // 'HinhAnh' => 'required',
-                'SDT' => 'max:12',
+                'SDT' => 'required|max:12',
                 'NgaySinh' => 'required',
             ],
             [
+                // 'Email.required' => 'required|email|unique:users',
                 'Email.required' => 'Bạn chưa nhập Email',
-                'Email.Email' => 'Email không đúng định dạng',
+                'Email.unique' => 'Email đã tồn tại',
                 'MatKhau.required' => 'Bạn chưa nhập mật khẩu',
                 'MatKhau.min' => 'Mật khẩu không được nhỏ hơn 6 ký tự',
+                'SDT.required' => 'Bạn chưa nhập số điện thoại',
                 'SDT.max' => 'Số điện thoại không được vượt quá 12 ký tự',
                 'HoTen.max' => 'Họ tên không được vượt quá 255 ký tự',
+                'HoTen.required' => 'Bạn chưa nhập họ & tên',
+                'MatKhau.required' => 'Bạn chưa nhập mật khẩu',
+                'NgaySinh.required' => 'Bạn chưa chọn ngày sinh',
             ]
         );
         $taiKhoan = new User();
@@ -93,18 +118,15 @@ class UserController extends Controller
 
         // $taiKhoan = User::create(request(['MSSV', 'MatKhau','HoTen','SDT','phan_quyen','trang_thai']));
 
-        $ktDTaiKhoan = User::where('email', $request->input('Email'))->first();
-        // return ($ktDiaDanh);
-        if ($ktDTaiKhoan) {
-            return Redirect::back()->with('error', 'Email đã tồn tại');
-        } else {
+
             $taiKhoan->save(); //lưu xong mới có mã địa danh
-        }
         if ($request->hasFile('images')) {
             $taiKhoan->hinh_anh = $request->file('images')->store('images/taiKhoan/' . $taiKhoan->id, 'public');
             $taiKhoan->save();
         }
-
+        if($request->input('NgaySinh') > Carbon::now()) {
+            return Redirect::back()->with('error', 'Nhập ngày sinh không hợp lệ');
+        }
         // dd($taiKhoan);
         return Redirect::route('taiKhoan.index')->with('success', 'Thêm tài khoản thành công');
     }
@@ -125,6 +147,7 @@ class UserController extends Controller
         //
         $taiKhoan=User::find($id);
         return view('component.tai-khoan.taikhoan-maneger', ['taiKhoan'=>$taiKhoan]);
+
     }
 
     /**
@@ -136,7 +159,11 @@ class UserController extends Controller
     public function edit(User $taiKhoan)
     {
         //
-        return view('component/tai-khoan/taikhoan-edit', ['taiKhoan' => $taiKhoan]);
+        if (Auth::user()->phan_quyen == 1){
+            return view('component/tai-khoan/taikhoan-edit', ['taiKhoan' => $taiKhoan]);
+        }else{
+                    abort('403', __('Bạn không có quyền vào trang này'));
+                }
     }
 
     /**
@@ -152,18 +179,25 @@ class UserController extends Controller
         $this->validate(
             $request,
             [
+                'Email' => 'email|unique:users',
                 'MatKhau' => 'required|alphaNum|min:6',
-                'HoTen' => 'max:255',
+                'HoTen' => 'required|max:255',
                 // 'HinhAnh' => 'required',
-                'SDT' => 'max:12',
+                'SDT' => 'required|max:12',
                 'NgaySinh' => 'required',
             ],
             [
-                // 'MSSV.MSSV' => 'MSSV không đúng định dạng',
+                // 'Email.required' => 'required|email|unique:users',
+
+                'Email.unique' => 'Email đã tồn tại',
                 'MatKhau.required' => 'Bạn chưa nhập mật khẩu',
                 'MatKhau.min' => 'Mật khẩu không được nhỏ hơn 6 ký tự',
+                'SDT.required' => 'Bạn chưa nhập số điện thoại',
                 'SDT.max' => 'Số điện thoại không được vượt quá 12 ký tự',
                 'HoTen.max' => 'Họ tên không được vượt quá 255 ký tự',
+                'HoTen.required' => 'Bạn chưa nhập họ & tên',
+                'MatKhau.required' => 'Bạn chưa nhập mật khẩu',
+                'NgaySinh.required' => 'Bạn chưa chọn ngày sinh',
             ]
         );
         if ($request->hasFile('images')) {

@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\PhongHoc;
 use App\Models\GiangVien;
 use App\Models\LopHoc;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Http\Request;
 
@@ -25,6 +26,12 @@ class PhanCongController extends Controller
         return View('component/phan-cong/phancong-show', ['lstPhanCong'=>$lstPhanCong]);
     }
 
+    public function search(Request $request){
+        $search = $request->input('search');
+        $lstPhanCong = PhanCong::where('ten_ca','LIKE','%'.$search.'%')->orWhere('ngay_bat_dau','LIKE','%'.$search.'%')->get();
+        return view('component/phan-cong/phancong-show', ['lstPhanCong'=>$lstPhanCong]);
+
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -33,11 +40,11 @@ class PhanCongController extends Controller
     public function create()
     {
         //
-        $lstUser=User::all();
-        $lstPhanCong=PhanCong::all();
-        $lstPhongHoc=PhongHoc::all();
-        // $lstGiangVien=GiangVien::all();
-        // $lstLop=LopHoc::all();
+        $lstUser=User::all()->where('phan_quyen',0);
+        $lstPhanCong=PhanCong::all()->where('trang_thai',1);
+        $lstPhongHoc=PhongHoc::all()->where('trang_thai',1);
+        // $lstGiangVien=GiangVien::all()->where('trang_thai',1);
+        // $lstLopHoc=LopHoc::all()->where('trang_thai',1);
         return view('component/phan-cong/phancong-create',['lstPhanCong'=>$lstPhanCong,'lstPhongHoc'=>$lstPhongHoc,'lstUser'=>$lstUser]);
     }
 
@@ -50,27 +57,45 @@ class PhanCongController extends Controller
     public function store(Request $request)
     {
         //
+        $this->validate(
+            $request,
+            [
+                'NgayBatDau' => 'required',
+                'NgayKetThuc' => 'required',
+                'TenNguoiTruc' => 'required',
+                'checkBox' => 'required',
+                'TenPhong' => 'required',
+            ],
+            [
+                'NgayBatDau.required' => 'Chưa chọn thời gian bắt đầu',
+                'NgayKetThuc.required' => 'Chưa chọn thời gian kết thúc',
+                'TenNguoiTruc.required' => 'Chưa chọn người trực',
+                'checkBox.required' => 'Chưa chọn ca',
+                'TenPhong.required' => 'Chưa chọn phòng trực',
+            ]
+        );
+
+
         $phanCong = new PhanCong();
         $phanCong->fill([
         'ngay_bat_dau'=> $request->input('NgayBatDau'),
         'ngay_ket_thuc'=> $request->input('NgayKetThuc'),
         'user_id'=> $request->input('TenNguoiTruc'),
         'ten_ca' => implode(",",$request->input('checkBox')),
-        'phong_id'=> $request->input('TenPhong'),
-        //  'lop_id'=> $request->input('TenLop'),
-        //  'giang_vien_id'=> $request->input('TenGiangVien'),
+        'phong_hoc_id'=> $request->input('TenPhong'),
 
         ]);
-        // $ktCa = PhanCong::where('ten_ca', $request->input('TenCa'))->first();
-
-
-        // if ($ktCa) {
-        //     return Redirect::back()->with('error', 'Ca đã tồn tại');
-        // } else {
-        //     $caHoc->save(); //lưu xong mới có mã may
-        // }
-        $phanCong->save();
-        return Redirect::route('phanCong.index')->with('success', 'Thêm ca thành công');
+        // dd($request->input('NgayBatDau') >= Carbon::now());
+        // if($request->input('NgayBatDau') < Carbon::now()) {
+        //     return Redirect::back()->with('error', 'Nhập ngày bắt đầu không hợp lệ');
+        // } else
+        if($request->input('NgayBatDau') > $request->input('NgayKetThuc')){
+            return Redirect::back()->with('error', 'Ngày kết thúc phải lớn hơn ngày bắt đầu');
+        }
+else{
+    $phanCong->save();
+    return Redirect::route('phanCong.index')->with('success', 'Thêm ca thành công');
+}
 
     }
 
@@ -111,6 +136,43 @@ class PhanCongController extends Controller
     public function update(Request $request, PhanCong $phanCong)
     {
         //
+        $this->validate(
+            $request,
+            [
+                'NgayBatDau' => 'required',
+                'NgayKetThuc' => 'required',
+                'TenNguoiTruc' => 'required',
+                'checkBox' => 'required',
+                'TenPhong' => 'required',
+            ],
+            [
+                'NgayBatDau.required' => 'Chưa chọn thời gian bắt đầu',
+                'NgayKetThuc.required' => 'Chưa chọn thời gian kết thúc',
+                'TenNguoiTruc.required' => 'Chưa chọn người trực',
+                'checkBox.required' => 'Chưa chọn ca',
+                'TenPhong.required' => 'Chưa chọn phòng trực',
+            ]
+        );
+
+        $phanCong->fill([
+        'ngay_bat_dau'=> $request->input('NgayBatDau'),
+        'ngay_ket_thuc'=> $request->input('NgayKetThuc'),
+        'user_id'=> $request->input('TenNguoiTruc'),
+        'ten_ca' => implode(",",$request->input('checkBox')),
+        'phong_hoc_id'=> $request->input('TenPhong'),
+
+        ]);
+        // dd($request->input('NgayBatDau') >= Carbon::now());
+        // if($request->input('NgayBatDau') < Carbon::now()) {
+        //     return Redirect::back()->with('error', 'Nhập ngày bắt đầu không hợp lệ');
+        // } else
+        if($request->input('NgayBatDau') > $request->input('NgayKetThuc')){
+            return Redirect::back()->with('error', 'Ngày kết thúc phải lớn hơn ngày bắt đầu');
+        }
+else{
+    $phanCong->save();
+    return Redirect::route('phanCong.index')->with('success', 'Sửa ca thành công');
+}
     }
 
     /**

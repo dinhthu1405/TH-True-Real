@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\GiangVien;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Auth;
 
 class GiangVienController extends Controller
 {
@@ -16,8 +17,18 @@ class GiangVienController extends Controller
     public function index()
     {
         //
-        $lstGiangVien = GiangVien::all()->where('trang_thai',1);
-        return view('component/giang-vien/giangvien-show', ['lstGiangVien'=>$lstGiangVien]);
+        if (Auth::user()->phan_quyen == 1){
+            $lstGiangVien = GiangVien::all()->where('trang_thai',1);
+            return view('component/giang-vien/giangvien-show', ['lstGiangVien'=>$lstGiangVien]);
+            }else{
+                abort('403', __('Bạn không có quyền vào trang này'));
+            }
+    }
+
+    public function search(Request $request){
+        $search = $request->input('search');
+        $lstGiangVien = GiangVien::where('ten_giang_vien','LIKE','%'.$search.'%')->get();
+    return view('component/giang-vien/giangvien-show', ['lstGiangVien'=>$lstGiangVien]);
     }
 
     /**
@@ -28,8 +39,12 @@ class GiangVienController extends Controller
     public function create()
     {
         //
+      if (Auth::user()->phan_quyen == 1){
         $lstGiangVien=GiangVien::all();
         return view('component/giang-vien/giangvien-create',['lstGiangVien'=>$lstGiangVien]);
+        }else{
+                abort('403', __('Bạn không có quyền vào trang này'));
+            }
     }
 
     /**
@@ -41,6 +56,16 @@ class GiangVienController extends Controller
     public function store(Request $request)
     {
         //
+        $this->validate(
+            $request,
+            [
+                'TenGiangVien' => 'required',
+            ],
+            [
+                'TenGiangVien.required' => 'Chưa nhập tên giảng viên',
+
+            ]
+        );
         $giangVien= new GiangVien();
         $giangVien->fill([
             'ten_giang_vien'=>$request->input('TenGiangVien'),
@@ -76,8 +101,12 @@ class GiangVienController extends Controller
     public function edit(GiangVien $giangVien)
     {
         //
+       if (Auth::user()->phan_quyen == 1){
         $lstGiangVien=GiangVien::all();
         return view('component/giang-vien/giangvien-edit',['giangVien'=>$giangVien,'lstGiangVien'=>$lstGiangVien]);
+        }else{
+                    abort('403', __('Bạn không có quyền vào trang này'));
+                }
     }
 
     /**
@@ -90,6 +119,16 @@ class GiangVienController extends Controller
     public function update(Request $request, GiangVien $giangVien)
     {
         //
+        $this->validate(
+            $request,
+            [
+                'TenGiangVien' => 'required',
+            ],
+            [
+                'TenGiangVien.required' => 'Chưa nhập tên giảng viên',
+
+            ]
+        );
         $giangVien->fill([
             'ten_giang_vien'=>$request->input('TenGiangVien'),
         ]);

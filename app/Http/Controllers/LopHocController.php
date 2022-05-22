@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\LopHoc;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Auth;
 
 class LopHocController extends Controller
 {
@@ -16,10 +17,19 @@ class LopHocController extends Controller
     public function index()
     {
         //
+      if (Auth::user()->phan_quyen == 1){
         $lstLopHoc = LopHoc::all()->where('trang_thai',1);
         return view('component/lop-hoc/lophoc-show', ['lstLopHoc'=>$lstLopHoc]);
+         }else{
+                        abort('403', __('Bạn không có quyền vào trang này'));
+                    }
     }
 
+    public function search(Request $request){
+        $search = $request->input('search');
+        $lstLopHoc=LopHoc::where('ten_lop','LIKE','%'.$search.'%')->get();
+    return view('component/lop-hoc/lophoc-show', compact('lstLopHoc'));
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -28,8 +38,12 @@ class LopHocController extends Controller
     public function create()
     {
         //
-        $lstLopHoc=LopHoc::all();
-        return view('component/lop-hoc/lophoc-create',['lstLopHoc'=>$lstLopHoc]);
+        if (Auth::user()->phan_quyen == 1){
+            $lstLopHoc=LopHoc::all();
+            return view('component/lop-hoc/lophoc-create',['lstLopHoc'=>$lstLopHoc]);
+           }else{
+                            abort('403', __('Bạn không có quyền vào trang này'));
+                        }
     }
 
     /**
@@ -41,6 +55,16 @@ class LopHocController extends Controller
     public function store(Request $request)
     {
         //
+        $this->validate(
+            $request,
+            [
+                'TenLop' => 'required',
+            ],
+            [
+                'TenLop.required' => 'Chưa nhập tên lớp học',
+
+            ]
+        );
         $lopHoc= new LopHoc();
         $lopHoc->fill([
             'ten_lop'=>$request->input('TenLop'),
@@ -76,8 +100,12 @@ class LopHocController extends Controller
     public function edit(LopHoc $lopHoc)
     {
         //
+      if (Auth::user()->phan_quyen == 1){
         $lstLopHoc=LopHoc::all();
         return view('component/lop-hoc/lophoc-edit',['lopHoc'=>$lopHoc,'lstLopHoc'=>$lstLopHoc]);
+        }else{
+                            abort('403', __('Bạn không có quyền vào trang này'));
+                        }
     }
 
     /**
@@ -90,6 +118,16 @@ class LopHocController extends Controller
     public function update(Request $request, LopHoc $lopHoc)
     {
         //
+        $this->validate(
+            $request,
+            [
+                'TenLop' => 'required',
+            ],
+            [
+                'TenLop.required' => 'Chưa nhập tên lớp học',
+
+            ]
+        );
         $lopHoc->fill([
             'ten_lop'=>$request->input('TenLop'),
         ]);

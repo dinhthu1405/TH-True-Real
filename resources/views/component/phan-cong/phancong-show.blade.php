@@ -6,7 +6,7 @@
 
     @if ($lstPhanCong->isNotEmpty())
         <section class="content" style="padding-left: 2%; padding-bottom: 2%">
-            <form action="#" method="post">
+            <form action="{{ route('phanCong.search') }}" method="post">
                 {{ csrf_field() }}
                 <div class="row">
                     <div class="col-md-4">
@@ -29,11 +29,14 @@
                                 <h4 style="padding-top: 25px; padding-left: 25px" class="card-title">Thông Tin Phân Công
                                 </h4>
                             </div>
-                            <div style="padding-top: 18px" class="col-md-2">
-                                <a href="{{ route('phanCong.create') }}" class="">
-                                    <button class="btn btn-success"> <i class="fas fa-plus"></i> Thêm Ca</button>
-                                </a>
-                            </div>
+                            @if (Auth::user()->phan_quyen == 1)
+                                <div style="padding-top: 18px" class="col-md-2">
+                                    <a href="{{ route('phanCong.create') }}" class="">
+                                        <button class="btn btn-success"> <i class="fas fa-plus"></i> Thêm Phân
+                                            Công</button>
+                                    </a>
+                                </div>
+                            @endif
                         </div>
                         <div class="card-body">
                             <div class="row">
@@ -54,11 +57,14 @@
                                     @foreach ($lstPhanCong as $phanCong)
                                         <tbody>
                                             <tr>
-                                                <td>{{ $phanCong->users->ho_ten }}</td>
+                                                <td>
+
+                                                    {{ $phanCong->users->ho_ten }}
+                                                </td>
                                                 <td>{{ $phanCong->ten_ca }}</td>
                                                 <td>{{ Str::limit($phanCong->phongHocs->ten_phong, 15) }}</td>
-                                                <td>{{ $phanCong->ten_ca }}</td>
-                                                <td>{{ $phanCong->ten_ca }}</td>
+                                                <td>{{ $phanCong->ngay_bat_dau }}</td>
+                                                <td>{{ $phanCong->ngay_ket_thuc }}</td>
                                                 {{-- <td>{{ Str::limit($phanCong->lopHocs->ten_lop, 15) }}</td>
                                                 <td>{{ $phanCong->giangViens->ten_giang_vien }}</td> --}}
                                                 @if (Auth::user()->phan_quyen == 1)
@@ -86,12 +92,12 @@
     @else
         <div class="row">
             <div class="col-md-10">
-                <h2 style="padding-left: 2%">Không tìm thấy ca học nào</h2>
+                <h2 style="padding-left: 2%">Không tìm thấy phân công nào</h2>
             </div>
             @if (Auth::user()->phan_quyen == 1)
                 <div class="col-md-2">
                     <a href="{{ route('phanCong.create') }}" class="">
-                        <button class="btn btn-success"> <i class="fas fa-plus"></i> Thêm Ca</button>
+                        <button class="btn btn-success"> <i class="fas fa-plus"></i> Thêm Phân Công</button>
                     </a>
                 </div>
             @endif

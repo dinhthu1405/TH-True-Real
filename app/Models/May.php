@@ -5,11 +5,18 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+// use Cviebrock\EloquentSluggable\Sluggable;
+// use Laravel\Scout\Searchable;
 
 class May extends Model
 {
   use HasFactory, SoftDeletes;
+//   Searchable;
   protected $guarded = [];
+//   public function searhableAs()
+//   {
+//     return 'may';
+//   }
   /**
    * The attributes that are mass assignable.
    *

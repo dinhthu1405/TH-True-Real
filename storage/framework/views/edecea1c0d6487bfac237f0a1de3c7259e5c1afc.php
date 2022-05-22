@@ -56,15 +56,7 @@
                             <?php echo @csrf_field(); ?>
 
                             <div class="row">
-                                <!-- <div class="col-md-6 pr-1">
-                                                                                                                                                            <label>Tài khoản</label>
-                                                                                                                                                            <select name="User" id="" class="form-control">
-                                                                                                                                                                <option value="">-- Chọn Tài Khoản--</option>
-                                                                                                                                                                <?php $__currentLoopData = $lstUser; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $user): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-    <option value="<?php echo e($user->id); ?>"><?php echo e($user->email); ?></option>
-    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                                                                                                                                                            </select>
-                                                                                                                                                        </div> -->
+                                
                                 <div class="col-md-6 pr-1">
                                     <div class="form-group">
                                         <label>Thời gian</label>
@@ -94,12 +86,34 @@
 
                                     </select>
                                 </div>
+                                <div class="col-md-6 pr-1">
+                                    <label>Giảng viên</label>
+                                    <select name="GiangVien" id="" class="form-control">
+                                        <option value="">-- Chọn giảng viên--</option>
+                                        <?php $__currentLoopData = $lstGiangVien; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $giangVien): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                            <option value="<?php echo e($giangVien->id); ?>"><?php echo e($giangVien->ten_giang_vien); ?>
+
+                                            </option>
+                                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+
+                                    </select>
+                                </div>
+                                <div class="col-md-6 pr-1">
+                                    <label>Lớp học</label>
+                                    <select name="LopHoc" id="" class="form-control">
+                                        <option value="">-- Chọn lớp học--</option>
+                                        <?php $__currentLoopData = $lstLopHoc; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $lopHoc): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                            <option value="<?php echo e($lopHoc->id); ?>"><?php echo e($lopHoc->ten_lop); ?></option>
+                                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+
+                                    </select>
+                                </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-12 pr-1"><br>
-                                    <label>Ghi chú lỗi</label>
+                                    <label>Tên lỗi</label>
                                     <div class="form-group">
-                                        <textarea class="form-control" name="TenLoi" id="" cols="165" rows="10"></textarea>
+                                        <textarea class="form-control" name="TenLoi" id="" cols="165" rows="5"></textarea>
                                     </div>
                                 </div>
                             </div>

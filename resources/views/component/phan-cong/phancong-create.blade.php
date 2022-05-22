@@ -57,7 +57,7 @@
                     <div class="card-body">
                         <form action="{{ route('phanCong.store') }}" method="post" enctype="multipart/form-data">
                             {!! @csrf_field() !!}
-                            
+
                             <div class="row">
                                 <div class="col-md-4">
                                     <label>Phòng</label>
@@ -67,18 +67,16 @@
                                             <option value="{{ $phongHoc->id }}">{{ $phongHoc->ten_phong }}</option>
                                         @endforeach
                                     </select>
-                                </div>  
+                                </div>
                                 <div class="col-md-4 pr-1">
-                                    
-                                        <label>Tên Người Trực</label>
-                                        <select name="TenNguoiTruc" id="" class="form-control">
-                                            <option value="">-- Chọn Người Trực--</option>
-                                            @foreach ($lstUser as $user)
-                                                <option value="{{ $user->id }}">
-                                                    {{ $user->ho_ten }}</option>
-                                            @endforeach
-                                        </select>
-                                    
+                                    <label>Tên Người Trực</label>
+                                    <select name="TenNguoiTruc" id="" class="form-control">
+                                        <option value="">-- Chọn Người Trực--</option>
+                                        @foreach ($lstUser as $user)
+                                            <option value="{{ $user->id }}">
+                                                {{ $user->ho_ten }}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
                                 <div class="col-md-4 pr-1">
                                     <label>Chọn Ca</label>
@@ -86,15 +84,15 @@
                                         <div class="row">
                                             <div class="col-md-2">
                                                 <input type="checkbox" name="checkBox[]" value="1"> 1 <br />
-                                                <input type="checkbox" name="checkBox[]" value="3"> 3 <br />
+                                                <input type="checkbox" name="checkBox[]" value="2"> 2 <br />
                                             </div>
                                             <div class="col">
-                                                <input type="checkbox" name="checkBox[]" value="2"> 2 <br />
+                                                <input type="checkbox" name="checkBox[]" value="3"> 3 <br />
                                                 <input type="checkbox" name="checkBox[]" value="4"> 4 <br />
                                             </div>
                                         </div>
                                     </div>
-                                </div>                                                  
+                                </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-6 pr-1">
@@ -112,12 +110,10 @@
                                     </div>
                                 </div>
                             </div>
-                            
-                            {{--  --}}
                             <br>
                             <div class="row">
                                 <div class="update ml-auto mr-auto">
-                                    <button type="submit" class="btn btn-primary btn-round">Thêm Ca học</button>
+                                    <button type="submit" class="btn btn-primary btn-round">Thêm Ca Trực</button>
                                 </div>
                             </div>
                         </form>

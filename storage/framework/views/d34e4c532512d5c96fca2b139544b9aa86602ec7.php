@@ -4,7 +4,7 @@
 
     <?php if($lstTaiKhoan->isNotEmpty()): ?>
         <section class="content" style="padding-left: 2%; padding-bottom: 2%">
-            <form action="#" method="post">
+            <form action="<?php echo e(route('taiKhoan.search')); ?>" method="post">
                 <?php echo e(csrf_field()); ?>
 
 
@@ -45,7 +45,7 @@
                                         <th>Số điện thoại</th>
                                         <th>Ngày Sinh</th>
                                         <th>Loại Tài Khoản</th>
-                                        <th>Phòng</th>
+
                                         <th>Khóa</th>
                                         <th>Sửa</th>
                                     </thead>
@@ -65,12 +65,13 @@
                                                     <?php else: ?>
                                                         <td>Người dùng</td>
                                                     <?php endif; ?>
-                                                    <td><?php echo e($taiKhoan->sdt); ?></td>
+
                                                     
                                                     <td>
                                                         <a href="<?php echo e(route('taiKhoan.xoa', $taiKhoan->id)); ?>"
                                                             onclick="return confirm('Bạn có chắc muốn mở khoá tài khoản này')"><button
-                                                                class="btn btn-danger" type="submit">Mở khoá</button></a>
+                                                                class="btn btn-danger" type="submit">Mở
+                                                                khoá</button></a>
                                                         <!-- </a> -->
                                                     </td>
                                                     <td><a href="<?php echo e(route('taiKhoan.edit', $taiKhoan->id)); ?>"><button
@@ -93,15 +94,20 @@
                                                     <?php else: ?>
                                                         <td>Người dùng</td>
                                                     <?php endif; ?>
-                                                    <td><?php echo e($taiKhoan->sdt); ?></td>
+
                                                     
                                                     
-                                                    <td>
-                                                        <a href="<?php echo e(route('taiKhoan.xoa', $taiKhoan->id)); ?>"
-                                                            onclick="return confirm('Bạn có chắc muốn khoá tài khoản này')"><button
-                                                                class="btn btn-danger" type="submit">Khoá</button></a>
-                                                        <!-- </a> -->
-                                                    </td>
+                                                    <?php if($taiKhoan->phan_quyen == 0): ?>
+                                                        <td>
+                                                            <a href="<?php echo e(route('taiKhoan.xoa', $taiKhoan->id)); ?>"
+                                                                onclick="return confirm('Bạn có chắc muốn khoá tài khoản này')"><button
+                                                                    class="btn btn-danger" type="submit">Khoá</button></a>
+                                                        </td>
+                                                    <?php else: ?>
+                                                        <td>
+
+                                                        </td>
+                                                    <?php endif; ?>
                                                     <td><a href="<?php echo e(route('taiKhoan.edit', $taiKhoan->id)); ?>"><button
                                                                 class="btn btn-warning">Sửa</button></a></td>
                                                 </tr>

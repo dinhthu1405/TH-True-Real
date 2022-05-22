@@ -14,18 +14,16 @@ class PhanCong extends Model
     protected $fillable = [
         'id',
         'ten_ca',
-        'phong_id',
+        'phong_hoc_id',
         'ngay_bat_dau',
         'ngay_ket_thuc',
-        // 'lop_id',
-        // 'giang_vien_id',
         'user_id',
         'trang_thai',
     ];
 
     public function phongHocs()
     {
-      return $this->belongsTo(PhongHoc::class, 'phong_id');
+      return $this->belongsTo(PhongHoc::class, 'phong_hoc_id');
     }
     public function users()
     {

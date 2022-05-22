@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Loi;
+use Carbon\Carbon;
 use App\Models\May;
 use App\Models\PhongHoc;
+use App\Models\GiangVien;
+use App\Models\LopHoc;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
@@ -24,6 +27,12 @@ class LoiController extends Controller
         return view('component/loi/loi-show', ['lstLoi' => $lstLoi]);
     }
 
+    public function search(Request $request){
+        $search = $request->input('search');
+        $lstLoi = Loi::where('ten_loi','LIKE','%'.$search.'%')->orWhere('thoi_gian','LIKE','%'.$search.'%')->orWhere('tinh_trang_loi','LIKE','%'.$search.'%')->get();
+// dd($lstLoi);
+        return view('component/loi/loi-show', ['lstLoi'=>$lstLoi]);
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -32,11 +41,15 @@ class LoiController extends Controller
     public function create()
     {
         //
+        $id = Auth::user()->id;
+        // $phongHoc=PhongHoc::find($id);
         $lstPhongHoc = PhongHoc::all();
         $lstMay = May::all();
+        $lstGiangVien = GiangVien::all();
+        $lstLopHoc = LopHoc::all();
         $lstLoi = Loi::all();
         $lstUser = User::all();
-        return view('component/loi/loi-create', ['lstLoi' => $lstLoi, 'lstPhongHoc' => $lstPhongHoc, 'lstMay' => $lstMay, 'lstUser' => $lstUser]);
+        return view('component/loi/loi-create', compact('lstPhongHoc','lstMay','lstGiangVien','lstLopHoc','lstLoi','lstUser'));
     }
 
     /**
@@ -48,6 +61,28 @@ class LoiController extends Controller
     public function store(Request $request)
     {
         //
+        $this->validate(
+            $request,
+            [
+                'TenLoi' => 'required|max:255',
+                'ThoiGian' => 'required',
+                'May' => 'required',
+                'Phong' => 'required',
+                'GiangVien'=>'required',
+                'LopHoc'=>'required'
+            ],
+            [
+                // 'MSSV.MSSV' => 'MSSV không đúng định dạng',
+                'TenLoi.required' => 'Chưa nhập tên lỗi',
+                'TenLoi.max' => 'Tên lỗi không quá 255 kí tự',
+                'ThoiGian.required' => 'Chưa chọn thời gian',
+
+                'May.required' => 'Chưa chọn máy',
+                'Phong.required' => 'Chưa chọn phòng',
+                'GiangVien.required' => 'Chưa chọn giảng viên',
+                'LopHoc.required' => 'Chưa chọn lớp học',
+            ]
+        );
         $loi = new Loi();
         $email = Auth::user()->id;
         $loi->fill([
@@ -56,14 +91,19 @@ class LoiController extends Controller
             'user_id' => $email,
             'may_id' => $request->input('May'),
             'phong_id' => $request->input('Phong'),
+            'giang_vien_id' => $request->input('GiangVien'),
+            'lop_hoc_id' => $request->input('LopHoc'),
             'tinh_trang_loi' => 'Chưa sửa',
         ]);
-        $ktLoi = Loi::where([['ten_loi', $request->input('TenLoi')], ['phong_id', $request->input('Phong')], ['may_id', $request->input('May')]])->first();
-        // return ($ktDiaDanh);
+        $ktLoi = Loi::where([['ten_loi', $request->input('TenLoi')], ['may_id', $request->input('May')],['phong_id', $request->input('Phong')],['thoi_gian', $request->input('ThoiGian')]])->first();
+        if($request->input('ThoiGian') > Carbon::now()) {
+            return Redirect::back()->with('error', 'Nhập thời gian không hợp lệ');
+        }
+        else if($ktLoi){
 
-        if ($ktLoi) {
             return Redirect::back()->with('error', 'Lỗi đã tồn tại');
-        } else {
+        }
+        else{
             $loi->save(); //lưu xong mới có mã may
         }
         return Redirect::route('loi.index')->with('success', 'Thêm lỗi thành công');
@@ -117,12 +157,17 @@ class LoiController extends Controller
             'phong_id' => $request->input('Phong'),
             'tinh_trang_loi' => implode(',', $request->input('checkBox')),
         ]);
-        $ktLoi = Loi::where(['ten_loi', $request->input('TenLoi')], ['may_id', $request->input('May')], [['phong_id', $request->input('Phong')]])->first();
+        $ktLoi = Loi::where([['ten_loi', $request->input('TenLoi')], ['may_id', $request->input('May')],['phong_id', $request->input('Phong')],['thoi_gian', $request->input('ThoiGian')]])->first();
         // return ($ktDiaDanh);
+// dd($request->input('ThoiGian') > Carbon::now());
+        if($request->input('ThoiGian') > Carbon::now()) {
+            return Redirect::back()->with('error', 'Nhập thời gian không hợp lệ');
+        }
+        else if($ktLoi){
 
-        if ($ktLoi) {
             return Redirect::back()->with('error', 'Lỗi đã tồn tại');
-        } else {
+        }
+        else{
             $loi->save(); //lưu xong mới có mã may
         }
         return Redirect::route('loi.xemLoi')->with('success', 'Thêm lỗi thành công');
@@ -153,15 +198,31 @@ class LoiController extends Controller
     public function update(Request $request, Loi $loi)
     {
         //
-
+        $this->validate(
+            $request,
+            [
+                'TenLoi' => 'required|max:255',
+                'GiangVien'=>'required',
+                'LopHoc'=>'required'
+            ],
+            [
+                'TenLoi.required' => 'Chưa nhập tên lỗi',
+                'TenLoi.max' => 'Tên lỗi không quá 255 kí tự',
+                'GiangVien.required' => 'Chưa chọn giảng viên',
+                'LopHoc.required' => 'Chưa chọn lớp học',
+            ]
+        );
         $loi->fill([
             'ten_loi' => $request->input('TenLoi'),
             'thoi_gian' => $request->input('ThoiGian'),
             'user_id' => $request->input('TaiKhoan'),
             'may_id' => $request->input('May'),
             'phong_id' => $request->input('Phong'),
-            'tinh_trang_loi' => $request->input('checkBox'),
+            'giang_vien_id' => $request->input('GiangVien'),
+            'lop_hoc_id' => $request->input('LopHoc'),
+            'tinh_trang_loi' => $request->input('radiobtn'),
         ]);
+        // dd($loi);
         // $ktLoi = Loi::where([['ten_loi', $request->input('TenLoi')], ['may_id', $request->input('May')], ['phong_id', $request->input('Phong')]])->first();
         // return ($ktDiaDanh);
 
@@ -182,5 +243,12 @@ class LoiController extends Controller
     public function destroy(Loi $loi)
     {
         //
+    }
+    public function xoa($id)
+    {
+        $loi=Loi::find($id);
+            $loi->trang_thai=0;
+            $loi->save();
+        return Redirect::route('loi.index');
     }
 }
