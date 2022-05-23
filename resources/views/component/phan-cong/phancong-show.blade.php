@@ -71,12 +71,14 @@
                                                     <td>
                                                         <a href="{{ route('phanCong.xoa', $phanCong->id) }}"
                                                             onclick="return confirm('Bạn có chắc muốn xoá ca học này, vì nó có thể ảnh hưởng đến ca học')"><button
-                                                                class="btn btn-danger" type="submit">Xóa</button></a>
+                                                                class="btn btn-danger" type="submit"><i
+                                                                    class="fas fa-trash-alt"></i></button></a>
                                                         <!-- </a> -->
                                                     </td>
                                                     <td>
                                                         <a href="{{ route('phanCong.edit', $phanCong->id) }}"><button
-                                                                class="btn btn-warning">Sửa</button></a>
+                                                                class="btn btn-warning"><i
+                                                                    class="fas fa-pencil-alt"></i></button></a>
                                                     </td>
                                                 @endif
                                             </tr>

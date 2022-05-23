@@ -212,12 +212,14 @@
                                                     <td>
                                                         <a href="<?php echo e(route('loi.xoa', $loi->id)); ?>"
                                                             onclick="return confirm('Bạn có chắc muốn xoá Lỗi này')"><button
-                                                                class="btn btn-danger" type="submit">Xóa</button></a>
+                                                                class="btn btn-danger" type="submit"><i
+                                                                    class="fas fa-trash-alt"></i></button></a>
 
                                                     </td>
                                                 <?php endif; ?>
                                                 <td><a href="<?php echo e(route('loi.edit', $loi->id)); ?>"><button
-                                                            class="btn btn-warning">Sửa</button></a></td>
+                                                            class="btn btn-warning"><i
+                                                                class="fas fa-pencil-alt"></i></button></a></td>
 
                                             </tr>
                                         </tbody>

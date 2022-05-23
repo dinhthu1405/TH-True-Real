@@ -55,12 +55,13 @@
 
                                                     <td>
                                                         <a href="{{ route('may.xoa', $may->id) }}"
-                                                            onclick="return confirm('Bạn có chắc muốn xoá máy này')"><button
-                                                                class="btn btn-danger" type="submit">Xóa</button></a>
-                                                        <!-- </a> -->
+                                                            onclick="return confirm('Bạn có chắc muốn xoá máy này')">
+                                                            <button class="btn btn-danger" type="submit">
+                                                                <i class="fas fa-trash-alt"></i></button></a>
                                                     </td>
                                                     <td><a href="{{ route('may.edit', $may->id) }}"><button
-                                                                class="btn btn-warning">Sửa</button></a></td>
+                                                                class="btn btn-warning"><i
+                                                                    class="fas fa-pencil-alt"></i></button></a></td>
                                                 </tr>
                                             </tbody>
                                         @endforeach
