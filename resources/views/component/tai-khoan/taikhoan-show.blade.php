@@ -73,12 +73,13 @@
                                                         <td>
                                                             <a href="{{ route('taiKhoan.xoa', $taiKhoan->id) }}"
                                                                 onclick="return confirm('Bạn có chắc muốn mở khoá tài khoản này')"><button
-                                                                    class="btn btn-danger" type="submit">Mở
-                                                                    khoá</button></a>
+                                                                    class="btn btn-success" type="submit"><i
+                                                                        class="fa fa-unlock"></i></button></a>
                                                             <!-- </a> -->
                                                         </td>
                                                         <td><a href="{{ route('taiKhoan.edit', $taiKhoan->id) }}"><button
-                                                                    class="btn btn-warning">Sửa</button></a></td>
+                                                                    class="btn btn-warning"><i
+                                                                        class="fas fa-pencil-alt"></i></button></a></td>
                                                     </tr>
                                                 </tbody>
                                             @else
@@ -106,8 +107,8 @@
                                                             <td>
                                                                 <a href="{{ route('taiKhoan.xoa', $taiKhoan->id) }}"
                                                                     onclick="return confirm('Bạn có chắc muốn khoá tài khoản này')"><button
-                                                                        class="btn btn-danger"
-                                                                        type="submit">Khoá</button></a>
+                                                                        class="btn btn-danger" type="submit"><i
+                                                                            class="fa fa-lock"></i></button></a>
                                                             </td>
                                                         @else
                                                             <td>
@@ -115,7 +116,8 @@
                                                             </td>
                                                         @endif
                                                         <td><a href="{{ route('taiKhoan.edit', $taiKhoan->id) }}"><button
-                                                                    class="btn btn-warning">Sửa</button></a></td>
+                                                                    class="btn btn-warning"><i
+                                                                        class="fas fa-pencil-alt"></i></button></a></td>
                                                     </tr>
                                                 </tbody>
                                             @endif

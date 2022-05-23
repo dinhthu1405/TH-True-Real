@@ -67,11 +67,13 @@
                                                     <td>
                                                         <a href="<?php echo e(route('phongHoc.xoa', $phongHoc->id)); ?>"
                                                             onclick="return confirm('Bạn có chắc muốn xoá phòng học này')"><button
-                                                                class="btn btn-danger" type="submit">Xóa</button></a>
+                                                                class="btn btn-danger" type="submit"><i
+                                                                    class="fas fa-trash-alt"></i></button></a>
 
                                                     </td>
                                                     <td><a href="<?php echo e(route('phongHoc.edit', $phongHoc->id)); ?>"><button
-                                                                class="btn btn-warning">Sửa</button></a></td>
+                                                                class="btn btn-warning"><i
+                                                                    class="fas fa-pencil-alt"></i></button></a></td>
                                                 </tr>
                                             </tbody>
                                         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
