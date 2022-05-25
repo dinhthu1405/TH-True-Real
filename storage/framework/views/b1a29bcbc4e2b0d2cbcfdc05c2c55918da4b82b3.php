@@ -39,7 +39,7 @@
                                 <div class="row">
                                     <table class="table" style="text-align: center;">
                                         <thead class="text-primary">
-                                            <th>Tên lớp</th>
+                                            <th>Tên giảng viên</th>
                                             <th>Xóa</th>
                                             <th>Sửa</th>
                                         </thead>
