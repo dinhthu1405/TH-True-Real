@@ -70,7 +70,7 @@
                                                 @if (Auth::user()->phan_quyen == 1)
                                                     <td>
                                                         <a href="{{ route('phanCong.xoa', $phanCong->id) }}"
-                                                            onclick="return confirm('Bạn có chắc muốn xoá ca học này, vì nó có thể ảnh hưởng đến ca học')"><button
+                                                            onclick="return confirm('Bạn có chắc muốn xoá phân công này!')"><button
                                                                 class="btn btn-danger" type="submit"><i
                                                                     class="fas fa-trash-alt"></i></button></a>
                                                         <!-- </a> -->

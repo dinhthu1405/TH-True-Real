@@ -94,7 +94,7 @@ class PhanCongController extends Controller
         }
 else{
     $phanCong->save();
-    return Redirect::route('phanCong.index')->with('success', 'Thêm ca thành công');
+    return Redirect::route('phanCong.index')->with('success', 'Thêm phân công thành công');
 }
 
     }
