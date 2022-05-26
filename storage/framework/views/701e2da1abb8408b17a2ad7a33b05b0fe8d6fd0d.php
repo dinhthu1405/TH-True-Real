@@ -113,13 +113,16 @@
 
             <!-- Sidebar Menu -->
             <nav class="mt-2">
-                <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
+                <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="tablist"
                     data-accordion="false">
                     <!-- Add icons to the links using the .nav-icon class
                  with font-awesome or any other icon font library -->
                     <?php if(Auth::user()->phan_quyen == 1): ?>
-                        <li class="nav-item">
-                            <a href="<?php echo e(route('home.index')); ?>" class="nav-link">
+                        <li
+                            class="nav-item <?php echo e(request()->is('place-add*') || request()->is('place-list*') ? 'active menu-open' : ''); ?>">
+
+                            <a href="<?php echo e(route('home.index')); ?>"
+                                class="nav-link <?php echo e(request()->is('home*') || request()->is('home*') ? 'active' : ''); ?>">
                                 <i class="nav-icon fas fa-home"></i>
                                 <p>
                                     Trang chủ
@@ -128,7 +131,8 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="<?php echo e(route('phongHoc.index')); ?>" class="nav-link">
+                            <a href="<?php echo e(route('phongHoc.index')); ?>"
+                                class="nav-link <?php echo e(request()->is('phongHoc*') || request()->is('phongHoc*') ? 'active' : ''); ?>">
                                 <i class="nav-icon fas fa-table"></i>
                                 <p>
                                     Quản Lý Phòng
@@ -137,7 +141,8 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="<?php echo e(route('may.index')); ?>" class="nav-link">
+                            <a href="<?php echo e(route('may.index')); ?>"
+                                class="nav-link <?php echo e(request()->is('may*') || request()->is('may*') ? 'active' : ''); ?>">
                                 <i class="nav-icon fas fa-desktop"></i>
                                 <p>
                                     Quản Lý Máy
@@ -146,7 +151,8 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="<?php echo e(route('loi.index')); ?>" class="nav-link">
+                            <a href="<?php echo e(route('loi.index')); ?>"
+                                class="nav-link <?php echo e(request()->is('loi*') || request()->is('loi*') ? 'active' : ''); ?>">
                                 <i class="nav-icon fas fa-bug"></i>
                                 <p>
                                     Quản Lý lỗi
@@ -155,7 +161,8 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="<?php echo e(route('phanCong.index')); ?>" class="nav-link">
+                            <a href="<?php echo e(route('phanCong.index')); ?>"
+                                class="nav-link <?php echo e(request()->is('phanCong*') || request()->is('phanCong*') ? 'active' : ''); ?>">
                                 <i class="nav-icon fas fa-tasks"></i>
                                 <p>
                                     Quản Lý Phân Công
@@ -167,7 +174,8 @@
                     <?php endif; ?>
                     <?php if(Auth::user()->phan_quyen == 0): ?>
                         <li class="nav-item">
-                            <a href="<?php echo e(route('loi.index')); ?>" class="nav-link">
+                            <a href="<?php echo e(route('loi.index')); ?>"
+                                class="nav-link <?php echo e(request()->is('loi*') || request()->is('loi*') ? 'active' : ''); ?>">
                                 <i class="nav-icon fas fa-bug"></i>
                                 <p>
                                     Danh Sách Lỗi
@@ -176,7 +184,8 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="<?php echo e(route('phanCong.index')); ?>" class="nav-link">
+                            <a href="<?php echo e(route('phanCong.index')); ?>"
+                                class="nav-link <?php echo e(request()->is('phanCong*') || request()->is('phanCong*') ? 'active' : ''); ?>">
                                 <i class="nav-icon fas fa-tasks"></i>
                                 <p>
                                     Phân Công
@@ -188,7 +197,8 @@
                     <?php endif; ?>
                     <?php if(Auth::user()->phan_quyen == 1): ?>
                         <li class="nav-item">
-                            <a href="<?php echo e(route('taiKhoan.index')); ?>" class="nav-link">
+                            <a href="<?php echo e(route('taiKhoan.index')); ?>"
+                                class="nav-link <?php echo e(request()->is('taiKhoan*') || request()->is('taiKhoan*') ? 'active' : ''); ?>">
                                 <i class="nav-icon fas fa-user"></i>
                                 <p>
                                     Quản Lý Tài Khoản
@@ -199,7 +209,8 @@
 
 
                         <li class="nav-item">
-                            <a href="<?php echo e(route('lopHoc.index')); ?>" class="nav-link">
+                            <a href="<?php echo e(route('lopHoc.index')); ?>"
+                                class="nav-link <?php echo e(request()->is('lopHoc*') || request()->is('lopHoc*') ? 'active' : ''); ?>">
                                 <i class="nav-icon fas fa-school"></i>
                                 <p>
                                     Quản Lý Lớp Học
@@ -208,7 +219,8 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="<?php echo e(route('giangVien.index')); ?>" class="nav-link">
+                            <a href="<?php echo e(route('giangVien.index')); ?>"
+                                class="nav-link <?php echo e(request()->is('giangVien*') || request()->is('giangVien*') ? 'active' : ''); ?>">
                                 <i class="nav-icon fas fa-chalkboard-teacher"></i>
                                 <p>
                                     Quản Lý Giảng Viên
@@ -217,7 +229,8 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="<?php echo e(route('viPham.index')); ?>" class="nav-link">
+                            <a href="<?php echo e(route('viPham.index')); ?>"
+                                class="nav-link <?php echo e(request()->is('viPham*') || request()->is('viPham*') ? 'active' : ''); ?>">
                                 <i class="nav-icon 	fas fa-user-slash"></i>
                                 <p>
                                     Quản Lý Vi Phạm
