@@ -48,7 +48,6 @@
                                             <th>Số điện thoại</th>
                                             <th>Ngày Sinh</th>
                                             <th>Loại Tài Khoản</th>
-
                                             <th>Khóa</th>
                                             <th>Sửa</th>
                                         </thead>
@@ -98,7 +97,6 @@
                                                         @else
                                                             <td>Người dùng</td>
                                                         @endif
-
                                                         {{-- <td>{{ $taiKhoan->phongHocs->ten_phong }}</td> --}}
                                                         {{-- @foreach ($taiKhoan->phongHocs as $phong)
                                                         <td>{{ $phong->created_at }}</td>
