@@ -21,7 +21,6 @@ class CreateUsersTable extends Migration
             $table->string('hinh_anh');
             $table->string('sdt');
             $table->date('ngay_sinh');
-            $table->unsignedBigInteger('phong_id');
             $table->boolean('phan_quyen')->nullable()->default(false);
             $table->boolean('trang_thai')->nullable()->default(1);
             $table->rememberToken();
